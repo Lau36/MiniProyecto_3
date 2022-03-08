@@ -6,5 +6,5 @@ package myProject;
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 
-public class ModelJugadorComputador {
+public class ModelJugadorComputador{
 }

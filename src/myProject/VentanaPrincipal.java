@@ -20,6 +20,9 @@ public class VentanaPrincipal extends JFrame {
     private ImageIcon imageHeader;
     private JTextArea  jugador, probar;
     private Escucha escucha;
+    private TableroUsuario tableroUsuario;
+    private int[][] tableroPosicion;
+    private int[][] tableroPrincipal;
 
     /**
      * Constructor of GUI class
@@ -47,6 +50,7 @@ public class VentanaPrincipal extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
+
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(612, 131));
@@ -60,9 +64,17 @@ public class VentanaPrincipal extends JFrame {
         this.add(headerProject, constraints);
         headerProject.setBackground(Color.WHITE);
 
-        probar = new JTextArea();
+        tableroUsuario = new TableroUsuario();
+        tableroUsuario.setPreferredSize(new Dimension(300,300));
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.anchor = GridBagConstraints.CENTER;
+        this.add(tableroUsuario, constraints);
 
         panelPosicion = new JPanel();
+        panelPosicion.setBackground(Color.CYAN);
         panelPosicion.setPreferredSize(new Dimension(300,300));
         panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
         constraints.gridx = 1;
@@ -71,10 +83,10 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(panelPosicion, constraints);
-        //panelPrincipal.add(probar);
 
         panelPrincipal = new JPanel();
         panelPrincipal.setPreferredSize(new Dimension(300,300));
+        panelPrincipal.setBackground(Color.CYAN);
         panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
         constraints.gridx = 2;
         constraints.gridy = 1;
@@ -82,9 +94,9 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(panelPrincipal, constraints);
-        //panelPrincipal.add(probar);
+        //panelPrincipal.add(tableroUsuario.pintarTableroUsuario(g,));
 
-        botonSalir = new JButton();
+        botonSalir = new JButton("Salir");
         botonSalir.setPreferredSize(new Dimension(100, 45));
         //ImageIcon imageBotonsalir = new ImageIcon(getClass().getResource("/recursos/exit.jpeg"));
         //botonSalir.setIcon(imageBotonsalir);
@@ -96,7 +108,7 @@ public class VentanaPrincipal extends JFrame {
         this.add(botonSalir, constraints);
         botonSalir.addActionListener(escucha);
 
-        botonAyuda = new JButton();
+        botonAyuda = new JButton("Ayuda");
         botonAyuda.setPreferredSize(new Dimension(108, 45));
         //ImageIcon imageBotonAyuda = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
        // botonAyuda.setIcon(imageBotonAyuda);
@@ -108,7 +120,7 @@ public class VentanaPrincipal extends JFrame {
         this.add(botonAyuda, constraints);
         botonAyuda.addActionListener(escucha);
 
-        botonJugar = new JButton();
+        botonJugar = new JButton("Posicionar");
         //ImageIcon imageBotonJugar = new ImageIcon(getClass().getResource("/recursos/jugar.jpeg"));
         //botonJugar.setIcon(imageBotonJugar);
         botonJugar.setPreferredSize(new Dimension(120, 45));
@@ -120,11 +132,11 @@ public class VentanaPrincipal extends JFrame {
         this.add(botonJugar, constraints);
         botonJugar.addActionListener(escucha);
 
-        verUsuario = new JButton();
-        verUsuario.setPreferredSize(new Dimension(300, 100));
+        verUsuario = new JButton("Ver oponente");
+        verUsuario.setPreferredSize(new Dimension(120, 45));
         constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 2;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(verUsuario, constraints);
@@ -132,19 +144,19 @@ public class VentanaPrincipal extends JFrame {
 
         jugador = new JTextArea();
         jugador.setText("eeee");
-        jugador.setPreferredSize(new Dimension(300, 100));
+        jugador.setPreferredSize(new Dimension(120, 45));
         jugador.setEditable(false);
         jugador.setFont(new Font("Arial", Font.ITALIC, 40));
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(jugador, constraints);
 
-
-
     }
+
+
 
     /**
      * Main process of the Java program
@@ -156,6 +168,7 @@ public class VentanaPrincipal extends JFrame {
             VentanaPrincipal miProjectVentanaPrincipal = new VentanaPrincipal();
         });
     }
+
 
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
@@ -171,6 +184,35 @@ public class VentanaPrincipal extends JFrame {
                 System.exit(0);
             }
             if(e.getSource()==botonJugar){
+                int num = 0;
+                while(num<4){
+                    tableroUsuario.preguntarPosicionFila();
+                    tableroUsuario.preguntarPosicionColumna();
+                    tableroUsuario.insertarFragata();
+                    num++;
+                }
+                int num2 = 0;
+                while(num2<3){
+                    tableroUsuario.preguntarPosicionFilaD();
+                    tableroUsuario.preguntarPosicionColumnaD();
+                    tableroUsuario.insertarDestructor();
+                    num2++;
+                }
+                int num3 = 0;
+                while(num3<2){
+                    tableroUsuario.preguntarPosicionFilaS();
+                    tableroUsuario.preguntarPosicionColumnaS();
+                    tableroUsuario.insertarSubmarino();
+                    num3++;
+                }
+                int num4 = 0;
+                while(num4<1){
+                    tableroUsuario.preguntarPosicionFilaP();
+                    tableroUsuario.preguntarPosicionColumnaP();
+                    tableroUsuario.insertarPortaaviones();
+                    num4++;
+                }
+                tableroUsuario.getTableroPosicion();
 
             }
             if(e.getSource()==verUsuario){
