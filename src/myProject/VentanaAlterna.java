@@ -2,6 +2,8 @@ package myProject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -12,8 +14,7 @@ import java.awt.*;
 public class VentanaAlterna extends JFrame {
     private Header headerProject;
     private JPanel panelPosicion, panelPrincipal;
-    private JButton botonRegresar;
-    private JTextArea jugador;
+    private Casillas casillas;
 
     /**
      * Constructor of GUI class
@@ -37,69 +38,49 @@ public class VentanaAlterna extends JFrame {
      */
     private void initVentanaAlterna() {
         //Set up JFrame Container's Layout
-        this.getContentPane().setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        /*this.getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();*/
         //Create Listener Object and Control Object
+        casillas = new Casillas();
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(612, 131));
         ImageIcon imageHeader = new ImageIcon(getClass().getResource("/recursos/header.jpeg"));
         headerProject.setIcon(imageHeader);
-        constraints.gridx = 1;
+        this.add(headerProject, BorderLayout.NORTH);
+        /*constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
-        this.add(headerProject, constraints);
+        this.add(headerProject, constraints);*/
         headerProject.setBackground(Color.WHITE);
 
-
-        panelPosicion = new JPanel();
-        panelPosicion.setPreferredSize(new Dimension(300,300));
-        panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
-        constraints.gridx = 1;
+        casillas = new Casillas();
+        casillas.setPreferredSize(new Dimension(300,300));
+        casillas.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
+        this.add(casillas,BorderLayout.EAST);
+        /*constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPosicion, constraints);
-        //panelPrincipal.add(probar);
+        this.add(panelPosicion, constraints);*/
+        //panelPosicion.add(casillas);
+        casillas.inicio();
+        casillas.ordenar();
 
         panelPrincipal = new JPanel();
         panelPrincipal.setPreferredSize(new Dimension(300,300));
         panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
-        constraints.gridx = 2;
+        this.add(panelPrincipal,BorderLayout.WEST);
+        /*constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPrincipal, constraints);
+        this.add(panelPrincipal, constraints);*/
         //panelPrincipal.add(probar);
-
-        botonRegresar = new JButton();
-        botonRegresar.setPreferredSize(new Dimension(100, 45));
-        //ImageIcon imageBotonsalir = new ImageIcon(getClass().getResource("/recursos/exit.jpeg"));
-        //botonSalir.setIcon(imageBotonsalir);
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(botonRegresar, constraints);
-        // botonSalir.addMouseListener(escucha);
-
-
-        jugador = new JTextArea();
-        jugador.setText("eeee");
-        jugador.setPreferredSize(new Dimension(300, 100));
-        jugador.setEditable(false);
-        jugador.setFont(new Font("Arial", Font.ITALIC, 40));
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(jugador, constraints);
 
 
     }
@@ -118,8 +99,6 @@ public class VentanaAlterna extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha {
 
-    }
 }
 

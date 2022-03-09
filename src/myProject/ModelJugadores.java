@@ -23,6 +23,7 @@ public class ModelJugadores{
      * Constructor of GUI class
      */
     public ModelJugadores(){
+        tablero = new TableroUsuario();
         encontrado = false;
         fragata = 1;
         destructores = 2;
@@ -35,30 +36,19 @@ public class ModelJugadores{
 
     //recorre la matriz y verifica si hay una fragata
     public boolean verificarFragata(){
+
         for(int i=0; i<tablero.getTableroPosicion().length;i++){
+
             for(int j=0; j<tablero.getTableroPosicion().length;j++){
-                if(i==1 || j == 1){
+                if(tablero.getTableroPosicion[i][j]==1){
                     encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                    }
                 }
             }
-        }
         return encontrado;
-    }
-    //recorre la matriz y verifica si hay Destructores
-    public int verificarDestructores(){
-        return 3;
-    }
-    //recorre la matriz y verifica si hay Submarinos
-    public int verificarSubmarinos(){
-        return 3;
-    }
-    //recorre la matriz y verifica si hay Portaaviones
-    public int verificarPortaaviones(){
-        return 3;
+        }
+
     }
 
-
-
-
-
-}

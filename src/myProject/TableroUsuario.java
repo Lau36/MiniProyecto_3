@@ -3,9 +3,11 @@ package myProject;
 import javax.swing.*;
 import java.awt.*;
 
-public class TableroUsuario extends JPanel{
+public class TableroUsuario extends JLabel{
+    public double[][] getTableroPosicion;
     private int[][] tableroPosicion;
     private int[][] tableroPrincipal;
+    private boolean encontrado;
     private int valor; //el valor que da el usuario de la posicion
     private int valorFila, valorColumna, valorFilaD, valorColumnaD,valorFilaS, valorColumnaS,valorFilaP, valorColumnaP;
 
@@ -15,7 +17,9 @@ public class TableroUsuario extends JPanel{
     public TableroUsuario(){
         tableroPosicion = new int [10][10];
         tableroPrincipal = new int [10][10];
+        encontrado = false;
     }
+
     //Le pregunta al usuario en que posicion quiere colocar el barco y guarda el valor
     public void preguntarPosicionFila(){
         valorFila = Integer.parseInt(JOptionPane.showInputDialog(null,"Introduzca la fila en la que quiere posicionar la fragata","Posicion",JOptionPane.QUESTION_MESSAGE));
@@ -64,6 +68,11 @@ public class TableroUsuario extends JPanel{
         }
 
     }
+
+    public boolean getEncontrado(){
+        return encontrado;
+    }
+
     public void insertarDestructor(){
         for(int i=0; i<tableroPosicion.length ;i++){
             for (int j = 0; j < tableroPosicion[i].length; j++) {
@@ -129,6 +138,79 @@ public class TableroUsuario extends JPanel{
         }
     }
 
+    //--Funciones para verificar-----------------------------------------------------------------------------------------------
+
+    public boolean verificarFragata(){
+        for(int i=0; i<tableroPosicion.length;i++){
+            if(tableroPosicion[i].length==1){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<tableroPosicion.length;j++){
+                if(tableroPosicion[i][j]==1){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+    public boolean verificarDestructor(){
+        for(int i=0; i<tableroPosicion.length;i++){
+            if(tableroPosicion[i].length==2){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<tableroPosicion.length;j++){
+                if(tableroPosicion[i][j]==2){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+    public boolean verificarSubmarino(){
+        for(int i=0; i<tableroPosicion.length;i++){
+            if(tableroPosicion[i].length==3){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<tableroPosicion.length;j++){
+                if(tableroPosicion[i][j]==3){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+    public boolean verificarPortaaviones(){
+        for(int i=0; i<tableroPosicion.length;i++){
+            if(tableroPosicion[i].length==4){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<tableroPosicion.length;j++){
+                if(tableroPosicion[i][j]==4){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+
+    //------Fin de funciones-------------------------------------------------------------------------------------------------------------
+
     public int[][] getTableroPosicion() {
         return tableroPosicion;
     }
@@ -136,31 +218,5 @@ public class TableroUsuario extends JPanel{
     public int[][] getTableroPrincipal() {
         return tableroPrincipal;
     }
-
-    public void iniciarPartida() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                tableroPrincipal[i][j] = 0;
-            }
-        }
-    }
-
-    public void pintarTablero(Graphics g, int tablero[][], int x, int y) {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if(tablero[i][j]==0){
-                    g.setColor(Color.BLACK);
-                    g.drawRect(x+i*30,y+j*30,30,30);
-                }
-                tableroPrincipal[i][j]=0;
-            }
-        }
-    }
-
-    public void pintar(Graphics g){
-        iniciarPartida();
-        pintarTablero(g,tableroPrincipal,300,300);
-    }
-
 
 }

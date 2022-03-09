@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  *
@@ -21,6 +23,8 @@ public class VentanaPrincipal extends JFrame {
     private JTextArea  jugador, probar;
     private Escucha escucha;
     private TableroUsuario tableroUsuario;
+    private ModelJugadores modelJugadores;
+    private Casillas casillas;
     private int[][] tableroPosicion;
     private int[][] tableroPrincipal;
 
@@ -37,7 +41,7 @@ public class VentanaPrincipal extends JFrame {
         this.setResizable(true);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -50,6 +54,9 @@ public class VentanaPrincipal extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
+        casillas = new Casillas();
+        tableroUsuario = new TableroUsuario();
+        modelJugadores = new ModelJugadores();
 
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
@@ -64,18 +71,30 @@ public class VentanaPrincipal extends JFrame {
         this.add(headerProject, constraints);
         headerProject.setBackground(Color.WHITE);
 
-        tableroUsuario = new TableroUsuario();
+        /*tableroUsuario = new TableroUsuario();
         tableroUsuario.setPreferredSize(new Dimension(300,300));
-        constraints.gridx = 2;
+        tableroUsuario.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
+        constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
-        this.add(tableroUsuario, constraints);
+        this.add(tableroUsuario, constraints);*/
+
+        /*casillas.setPreferredSize(new Dimension(600,600));
+        casillas.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.anchor = GridBagConstraints.CENTER;
+        this.add(casillas, constraints);
+        casillas.inicio();
+        casillas.ordenar();*/
 
         panelPosicion = new JPanel();
         panelPosicion.setBackground(Color.CYAN);
-        panelPosicion.setPreferredSize(new Dimension(300,300));
+        panelPosicion.setPreferredSize(new Dimension(500,500));
         panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
         constraints.gridx = 1;
         constraints.gridy = 1;
@@ -84,9 +103,10 @@ public class VentanaPrincipal extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(panelPosicion, constraints);
 
+
         panelPrincipal = new JPanel();
-        panelPrincipal.setPreferredSize(new Dimension(300,300));
-        panelPrincipal.setBackground(Color.CYAN);
+        panelPrincipal.setPreferredSize(new Dimension(500,500));
+        //panelPrincipal.setBackground(Color.CYAN);
         panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
         constraints.gridx = 2;
         constraints.gridy = 1;
@@ -94,6 +114,7 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(panelPrincipal, constraints);
+
         //panelPrincipal.add(tableroUsuario.pintarTableroUsuario(g,));
 
         botonSalir = new JButton("Salir");
@@ -111,13 +132,13 @@ public class VentanaPrincipal extends JFrame {
         botonAyuda = new JButton("Ayuda");
         botonAyuda.setPreferredSize(new Dimension(108, 45));
         //ImageIcon imageBotonAyuda = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
-       // botonAyuda.setIcon(imageBotonAyuda);
+       //botonAyuda.setIcon(imageBotonAyuda);
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
-        this.add(botonAyuda, constraints);
+        //this.add(botonAyuda, constraints);
         botonAyuda.addActionListener(escucha);
 
         botonJugar = new JButton("Posicionar");
@@ -143,7 +164,7 @@ public class VentanaPrincipal extends JFrame {
         verUsuario.addActionListener(escucha);
 
         jugador = new JTextArea();
-        jugador.setText("eeee");
+        jugador.setText("");
         jugador.setPreferredSize(new Dimension(120, 45));
         jugador.setEditable(false);
         jugador.setFont(new Font("Arial", Font.ITALIC, 40));
@@ -153,6 +174,10 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(jugador, constraints);
+
+        panelPosicion.add(casillas);
+        casillas.inicio();
+        casillas.ordenar();
 
     }
 
@@ -177,11 +202,9 @@ public class VentanaPrincipal extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource()==botonAyuda){
-                JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
-            }
-            if(e.getSource()==botonSalir){
-                System.exit(0);
+            if(e.getSource()==verUsuario){
+                VentanaAlterna ventanaAlterna = new VentanaAlterna();
+                ventanaAlterna.setVisible(true);
             }
             if(e.getSource()==botonJugar){
                 int num = 0;
@@ -213,12 +236,17 @@ public class VentanaPrincipal extends JFrame {
                     num4++;
                 }
                 tableroUsuario.getTableroPosicion();
+                tableroUsuario.verificarFragata();
 
             }
-            if(e.getSource()==verUsuario){
-
+            if(e.getSource()==botonAyuda){
+                JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
+            }
+            if(e.getSource()==botonSalir){
+                System.exit(0);
             }
 
         }
+
     }
 }

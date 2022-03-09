@@ -1,10 +1,23 @@
 package myProject;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class TestClases {
     public static void main(String[] args) throws InterruptedException {
-       int[][] tableroPrincipal;
+        Casillas casillass = new Casillas();
+        int [][] nCasillas = null;
+        /*for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                JLabel casilla = new JLabel();
+                //this.add(casilla);//agrega el boton al panel
+                nCasillas[i][j] = casilla;
+                System.out.println(nCasillas[i][j]);
+            }
+        }*/
+        //casillass.inicializar();
+        System.out.println();
+       /*int[][] tableroPrincipal;
         Scanner input =new Scanner(System.in);
         Scanner sc = new Scanner(System.in);
 
@@ -42,5 +55,5 @@ public class TestClases {
             }
             System.out.println();
         }
-
+*/
 }}
