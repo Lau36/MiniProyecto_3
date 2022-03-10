@@ -67,8 +67,8 @@ public class VentanaAlterna extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(panelPosicion, constraints);*/
         //panelPosicion.add(casillas);
-        casillas.inicio();
-        casillas.ordenar();
+        //casillas.inicio();
+        //casillas.ordenar();
 
         panelPrincipal = new JPanel();
         panelPrincipal.setPreferredSize(new Dimension(300,300));

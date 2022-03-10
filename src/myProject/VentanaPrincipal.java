@@ -17,14 +17,15 @@ public class VentanaPrincipal extends JFrame {
     public static final String MENSAJE_INICIO = "";
 
     private Header headerProject;
-    private JPanel panelPosicion, panelPrincipal;
+    private JPanel panelPosicion, panelPrincipal, panelNuevo;
     private JButton botonSalir, botonAyuda, botonJugar, verUsuario;
     private ImageIcon imageHeader;
     private JTextArea  jugador, probar;
     private Escucha escucha;
     private TableroUsuario tableroUsuario;
     private ModelJugadores modelJugadores;
-    private Casillas casillas;
+    private Casilla casillas;
+    private Casilla[][] nuevasCasillas;
     private int[][] tableroPosicion;
     private int[][] tableroPrincipal;
 
@@ -54,9 +55,10 @@ public class VentanaPrincipal extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
-        casillas = new Casillas();
+        //casillas = new Casilla();
         tableroUsuario = new TableroUsuario();
         modelJugadores = new ModelJugadores();
+        nuevasCasillas = new Casilla[10][10];
 
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
@@ -71,51 +73,41 @@ public class VentanaPrincipal extends JFrame {
         this.add(headerProject, constraints);
         headerProject.setBackground(Color.WHITE);
 
-        /*tableroUsuario = new TableroUsuario();
-        tableroUsuario.setPreferredSize(new Dimension(300,300));
-        tableroUsuario.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(tableroUsuario, constraints);*/
-
-        /*casillas.setPreferredSize(new Dimension(600,600));
-        casillas.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(casillas, constraints);
-        casillas.inicio();
-        casillas.ordenar();*/
-
         panelPosicion = new JPanel();
-        panelPosicion.setBackground(Color.CYAN);
-        panelPosicion.setPreferredSize(new Dimension(500,500));
-        panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPosicion, constraints);
-
-
+        panelPosicion.setLayout(new GridLayout(10,10));
+        //Crea las casillas y las visualiza
+        for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                nuevasCasillas[i][j]= new Casilla(i,j);
+                nuevasCasillas[i][j].addActionListener(escucha);
+                nuevasCasillas[i][j].setPreferredSize(new Dimension(20,20));
+                panelPosicion.add(nuevasCasillas[i][j]);
+                panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
+                panelPosicion.setBackground(Color.CYAN);
+                constraints.gridx = 1;
+                constraints.gridy = 1;
+                constraints.gridwidth = 1;
+                constraints.fill = GridBagConstraints.NONE;
+                constraints.anchor = GridBagConstraints.CENTER;
+                this.add(panelPosicion, constraints);
+            }
+        }
         panelPrincipal = new JPanel();
-        panelPrincipal.setPreferredSize(new Dimension(500,500));
-        //panelPrincipal.setBackground(Color.CYAN);
-        panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPrincipal, constraints);
-
-        //panelPrincipal.add(tableroUsuario.pintarTableroUsuario(g,));
+        panelPrincipal.setPreferredSize(new Dimension(300,300));
+        for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                nuevasCasillas[i][j]=new Casilla(i,j);
+                nuevasCasillas[i][j].addActionListener(escucha);
+                panelPrincipal.add(nuevasCasillas[i][j]);
+                panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
+                constraints.gridx = 2;
+                constraints.gridy = 1;
+                constraints.gridwidth = 1;
+                constraints.fill = GridBagConstraints.NONE;
+                constraints.anchor = GridBagConstraints.CENTER;
+                this.add(panelPrincipal, constraints);
+            }
+        }
 
         botonSalir = new JButton("Salir");
         botonSalir.setPreferredSize(new Dimension(100, 45));
@@ -138,7 +130,7 @@ public class VentanaPrincipal extends JFrame {
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
-        //this.add(botonAyuda, constraints);
+        this.add(botonAyuda, constraints);
         botonAyuda.addActionListener(escucha);
 
         botonJugar = new JButton("Posicionar");
@@ -175,9 +167,6 @@ public class VentanaPrincipal extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(jugador, constraints);
 
-        panelPosicion.add(casillas);
-        casillas.inicio();
-        casillas.ordenar();
 
     }
 
@@ -198,10 +187,14 @@ public class VentanaPrincipal extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha implements ActionListener{
+    private class Escucha implements ActionListener, MouseListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+                //Casilla casillaSeleccionada = (Casilla) e.getSource(); //ya tengo la referencia de la casilla que se selecciono
+        }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e){
             if(e.getSource()==verUsuario){
                 VentanaAlterna ventanaAlterna = new VentanaAlterna();
                 ventanaAlterna.setVisible(true);
@@ -248,5 +241,24 @@ public class VentanaPrincipal extends JFrame {
 
         }
 
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
     }
 }
