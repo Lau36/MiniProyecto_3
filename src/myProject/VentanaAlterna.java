@@ -15,6 +15,7 @@ public class VentanaAlterna extends JFrame {
     private Header headerProject;
     private JPanel panelPosicion, panelPrincipal;
     private Casillas casillas;
+    private Casilla[][] nuevasCasillas1, nuevasCasillas2;
 
     /**
      * Constructor of GUI class
@@ -38,50 +39,41 @@ public class VentanaAlterna extends JFrame {
      */
     private void initVentanaAlterna() {
         //Set up JFrame Container's Layout
-        /*this.getContentPane().setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();*/
+
         //Create Listener Object and Control Object
-        casillas = new Casillas();
+        nuevasCasillas1 = new Casilla[10][10];
+        nuevasCasillas2 = new Casilla[10][10];
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(612, 131));
         ImageIcon imageHeader = new ImageIcon(getClass().getResource("/recursos/header.jpeg"));
         headerProject.setIcon(imageHeader);
         this.add(headerProject, BorderLayout.NORTH);
-        /*constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 2;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(headerProject, constraints);*/
         headerProject.setBackground(Color.WHITE);
 
-        casillas = new Casillas();
-        casillas.setPreferredSize(new Dimension(300,300));
-        casillas.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
-        this.add(casillas,BorderLayout.EAST);
-        /*constraints.gridx = 0;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPosicion, constraints);*/
-        //panelPosicion.add(casillas);
-        //casillas.inicio();
-        //casillas.ordenar();
+        panelPosicion = new JPanel();
+        for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                nuevasCasillas1[i][j] = new Casilla(i,j); //se puede crear otra clase casilla que sea las casillas del oponente
+                panelPosicion.add(nuevasCasillas1[i][j]);
+                nuevasCasillas1[i][j].setPreferredSize(new Dimension(25,25));
+                panelPosicion.setPreferredSize(new Dimension(300,300));
+                panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
+                this.add(panelPosicion,BorderLayout.EAST);
+            }
+        }
 
         panelPrincipal = new JPanel();
-        panelPrincipal.setPreferredSize(new Dimension(300,300));
-        panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
-        this.add(panelPrincipal,BorderLayout.WEST);
-        /*constraints.gridx = 1;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPrincipal, constraints);*/
-        //panelPrincipal.add(probar);
-
+        for(int i= 0; i<10; i++){
+            for(int j =0; j<10; j++){
+                nuevasCasillas2[i][j] = new Casilla(i,j);
+                panelPrincipal.add(nuevasCasillas2[i][j]);
+                panelPrincipal.setPreferredSize(new Dimension(300,300));
+                nuevasCasillas2[i][j].setPreferredSize(new Dimension(20,20));
+                panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
+                this.add(panelPrincipal,BorderLayout.WEST);
+            }
+        }
 
     }
 

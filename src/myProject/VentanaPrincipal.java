@@ -17,17 +17,15 @@ public class VentanaPrincipal extends JFrame {
     public static final String MENSAJE_INICIO = "";
 
     private Header headerProject;
-    private JPanel panelPosicion, panelPrincipal, panelNuevo;
+    private JPanel panelPosicion, panelPrincipal;
     private JButton botonSalir, botonAyuda, botonJugar, verUsuario;
     private ImageIcon imageHeader;
-    private JTextArea  jugador, probar;
+    private JTextArea  jugador;
     private Escucha escucha;
     private TableroUsuario tableroUsuario;
     private ModelJugadores modelJugadores;
-    private Casilla casillas;
+    private Casillas casillas;
     private Casilla[][] nuevasCasillas;
-    private int[][] tableroPosicion;
-    private int[][] tableroPrincipal;
 
     /**
      * Constructor of GUI class
@@ -41,7 +39,7 @@ public class VentanaPrincipal extends JFrame {
         this.pack();
         this.setResizable(true);
         this.setVisible(true);
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -75,6 +73,7 @@ public class VentanaPrincipal extends JFrame {
 
         panelPosicion = new JPanel();
         panelPosicion.setLayout(new GridLayout(10,10));
+
         //Crea las casillas y las visualiza
         for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
@@ -92,6 +91,7 @@ public class VentanaPrincipal extends JFrame {
                 this.add(panelPosicion, constraints);
             }
         }
+
         panelPrincipal = new JPanel();
         panelPrincipal.setPreferredSize(new Dimension(300,300));
         for(int i=0; i<10; i++){
@@ -99,6 +99,7 @@ public class VentanaPrincipal extends JFrame {
                 nuevasCasillas[i][j]=new Casilla(i,j);
                 nuevasCasillas[i][j].addActionListener(escucha);
                 panelPrincipal.add(nuevasCasillas[i][j]);
+                nuevasCasillas[i][j].setPreferredSize(new Dimension(20,20));
                 panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
                 constraints.gridx = 2;
                 constraints.gridy = 1;
@@ -119,7 +120,7 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonSalir, constraints);
-        botonSalir.addActionListener(escucha);
+        botonSalir.addMouseListener(escucha);
 
         botonAyuda = new JButton("Ayuda");
         botonAyuda.setPreferredSize(new Dimension(108, 45));
@@ -131,7 +132,7 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(botonAyuda, constraints);
-        botonAyuda.addActionListener(escucha);
+        botonAyuda.addMouseListener(escucha);
 
         botonJugar = new JButton("Posicionar");
         //ImageIcon imageBotonJugar = new ImageIcon(getClass().getResource("/recursos/jugar.jpeg"));
@@ -143,7 +144,7 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonJugar, constraints);
-        botonJugar.addActionListener(escucha);
+        botonJugar.addMouseListener(escucha);
 
         verUsuario = new JButton("Ver oponente");
         verUsuario.setPreferredSize(new Dimension(120, 45));
@@ -153,20 +154,7 @@ public class VentanaPrincipal extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(verUsuario, constraints);
-        verUsuario.addActionListener(escucha);
-
-        jugador = new JTextArea();
-        jugador.setText("");
-        jugador.setPreferredSize(new Dimension(120, 45));
-        jugador.setEditable(false);
-        jugador.setFont(new Font("Arial", Font.ITALIC, 40));
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(jugador, constraints);
-
+        verUsuario.addMouseListener(escucha);
 
     }
 
