@@ -2,8 +2,6 @@ package myProject;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
@@ -14,8 +12,8 @@ import java.awt.event.ActionListener;
 public class VentanaAlterna extends JFrame {
     private Header headerProject;
     private JPanel panelPosicion, panelPrincipal;
-    private Casillas casillas;
-    private Casilla[][] nuevasCasillas1, nuevasCasillas2;
+    private CasillaMaquina[][] nuevasCasillas1, nuevasCasillas2;
+    private CasillaMaquina casillaMaquina;
 
     /**
      * Constructor of GUI class
@@ -41,8 +39,8 @@ public class VentanaAlterna extends JFrame {
         //Set up JFrame Container's Layout
 
         //Create Listener Object and Control Object
-        nuevasCasillas1 = new Casilla[10][10];
-        nuevasCasillas2 = new Casilla[10][10];
+        nuevasCasillas1 = new CasillaMaquina[10][10];
+        nuevasCasillas2 = new CasillaMaquina[10][10];
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(612, 131));
@@ -54,7 +52,7 @@ public class VentanaAlterna extends JFrame {
         panelPosicion = new JPanel();
         for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
-                nuevasCasillas1[i][j] = new Casilla(i,j); //se puede crear otra clase casilla que sea las casillas del oponente
+                nuevasCasillas1[i][j] = new CasillaMaquina(i,j); //se puede crear otra clase casillaHumano que sea las casillas del oponente
                 panelPosicion.add(nuevasCasillas1[i][j]);
                 nuevasCasillas1[i][j].setPreferredSize(new Dimension(25,25));
                 panelPosicion.setPreferredSize(new Dimension(300,300));
@@ -66,7 +64,7 @@ public class VentanaAlterna extends JFrame {
         panelPrincipal = new JPanel();
         for(int i= 0; i<10; i++){
             for(int j =0; j<10; j++){
-                nuevasCasillas2[i][j] = new Casilla(i,j);
+                nuevasCasillas2[i][j] = new CasillaMaquina(i,j);
                 panelPrincipal.add(nuevasCasillas2[i][j]);
                 panelPrincipal.setPreferredSize(new Dimension(300,300));
                 nuevasCasillas2[i][j].setPreferredSize(new Dimension(20,20));
@@ -74,6 +72,10 @@ public class VentanaAlterna extends JFrame {
                 this.add(panelPrincipal,BorderLayout.WEST);
             }
         }
+
+    }
+
+    public void pintarCasilla(){
 
     }
 

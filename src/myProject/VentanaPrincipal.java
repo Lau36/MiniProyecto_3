@@ -24,8 +24,8 @@ public class VentanaPrincipal extends JFrame {
     private Escucha escucha;
     private TableroUsuario tableroUsuario;
     private ModelJugadores modelJugadores;
-    private Casillas casillas;
-    private Casilla[][] nuevasCasillas;
+    private CasillaHumano[][] nuevasCasillaHumanos;
+    private int counter1, counter2, counter3, counter4;
 
     /**
      * Constructor of GUI class
@@ -39,8 +39,8 @@ public class VentanaPrincipal extends JFrame {
         this.pack();
         this.setResizable(true);
         this.setVisible(true);
-        //this.setLocationRelativeTo(null);
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -53,10 +53,10 @@ public class VentanaPrincipal extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
-        //casillas = new Casilla();
+        //casillas = new CasillaHumano();
         tableroUsuario = new TableroUsuario();
         modelJugadores = new ModelJugadores();
-        nuevasCasillas = new Casilla[10][10];
+        nuevasCasillaHumanos = new CasillaHumano[10][10];
 
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
@@ -77,10 +77,10 @@ public class VentanaPrincipal extends JFrame {
         //Crea las casillas y las visualiza
         for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
-                nuevasCasillas[i][j]= new Casilla(i,j);
-                nuevasCasillas[i][j].addActionListener(escucha);
-                nuevasCasillas[i][j].setPreferredSize(new Dimension(20,20));
-                panelPosicion.add(nuevasCasillas[i][j]);
+                nuevasCasillaHumanos[i][j]= new CasillaHumano(i,j);
+                nuevasCasillaHumanos[i][j].addActionListener(escucha);
+                nuevasCasillaHumanos[i][j].setPreferredSize(new Dimension(20,20));
+                panelPosicion.add(nuevasCasillaHumanos[i][j]);
                 panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
                 panelPosicion.setBackground(Color.CYAN);
                 constraints.gridx = 1;
@@ -96,10 +96,10 @@ public class VentanaPrincipal extends JFrame {
         panelPrincipal.setPreferredSize(new Dimension(300,300));
         for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
-                nuevasCasillas[i][j]=new Casilla(i,j);
-                nuevasCasillas[i][j].addActionListener(escucha);
-                panelPrincipal.add(nuevasCasillas[i][j]);
-                nuevasCasillas[i][j].setPreferredSize(new Dimension(20,20));
+                nuevasCasillaHumanos[i][j]=new CasillaHumano(i,j);
+                nuevasCasillaHumanos[i][j].addActionListener(escucha);
+                panelPrincipal.add(nuevasCasillaHumanos[i][j]);
+                nuevasCasillaHumanos[i][j].setPreferredSize(new Dimension(20,20));
                 panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
                 constraints.gridx = 2;
                 constraints.gridy = 1;
@@ -134,7 +134,7 @@ public class VentanaPrincipal extends JFrame {
         this.add(botonAyuda, constraints);
         botonAyuda.addMouseListener(escucha);
 
-        botonJugar = new JButton("Posicionar");
+        botonJugar = new JButton("Reiniciar");
         //ImageIcon imageBotonJugar = new ImageIcon(getClass().getResource("/recursos/jugar.jpeg"));
         //botonJugar.setIcon(imageBotonJugar);
         botonJugar.setPreferredSize(new Dimension(120, 45));
@@ -176,9 +176,41 @@ public class VentanaPrincipal extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener, MouseListener{
+        public Escucha(){
+            counter1 = 0;
+            counter2 = 0;
+            counter3 = 0;
+            counter4 = 0;
+        }
         @Override
         public void actionPerformed(ActionEvent e){
-                //Casilla casillaSeleccionada = (Casilla) e.getSource(); //ya tengo la referencia de la casilla que se selecciono
+            if(e.getSource() instanceof JButton){
+                CasillaHumano casillaHumanoSeleccionada = (CasillaHumano) e.getSource(); //ya tengo la referencia de la casilla que se selecciono
+                if(counter1<4){
+                    casillaHumanoSeleccionada.setBackground(Color.GRAY);
+                    casillaHumanoSeleccionada.getFila();
+                    casillaHumanoSeleccionada.getColumna();
+                    counter1++;
+                }
+                else if(counter2<6){
+                    casillaHumanoSeleccionada.setBackground(Color.BLUE);
+                    casillaHumanoSeleccionada.getFila();
+                    casillaHumanoSeleccionada.getColumna();
+                    counter2++;
+                }
+                else if(counter3<6){
+                    casillaHumanoSeleccionada.setBackground(Color.RED);
+                    casillaHumanoSeleccionada.getFila();
+                    casillaHumanoSeleccionada.getColumna();
+                    counter3++;
+                }
+                else if(counter4<4){
+                    casillaHumanoSeleccionada.setBackground(Color.YELLOW);
+                    casillaHumanoSeleccionada.getFila();
+                    casillaHumanoSeleccionada.getColumna();
+                    counter4++;
+                }
+            }
         }
 
         @Override

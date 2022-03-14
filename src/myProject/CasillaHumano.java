@@ -2,20 +2,20 @@ package myProject;
 
 import javax.swing.*;
 
-public class Casilla extends JButton{
+public class CasillaHumano extends JButton{
     private int fila;
     private int columna;
 
-    public Casilla(int fila, int columna){
+    public CasillaHumano(int fila, int columna){
         this.fila = fila;
         this.columna = columna;
     }
 
-    public int getFila() {
+    public int getFila(){
         return fila;
     }
 
-    public int getColumna() {
+    public int getColumna(){
         return columna;
     }
 }

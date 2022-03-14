@@ -1,7 +1,6 @@
 package myProject;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class TableroUsuario extends JLabel{
     public double[][] getTableroPosicion;
@@ -10,6 +9,7 @@ public class TableroUsuario extends JLabel{
     private boolean encontrado;
     private int valor; //el valor que da el usuario de la posicion
     private int valorFila, valorColumna, valorFilaD, valorColumnaD,valorFilaS, valorColumnaS,valorFilaP, valorColumnaP;
+    private CasillaHumano casillaHumano;
 
     /**
      * Constructor of GUI class
@@ -19,6 +19,8 @@ public class TableroUsuario extends JLabel{
         tableroPrincipal = new int [10][10];
         encontrado = false;
     }
+
+    //public int valorDeEsaCasilla()
 
     //Le pregunta al usuario en que posicion quiere colocar el barco y guarda el valor
     public void preguntarPosicionFila(){
@@ -174,6 +176,7 @@ public class TableroUsuario extends JLabel{
         }
         return encontrado;
     }
+
     public boolean verificarSubmarino(){
         for(int i=0; i<tableroPosicion.length;i++){
             if(tableroPosicion[i].length==3){

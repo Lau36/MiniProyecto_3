@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class TestClases {
     public static void main(String[] args) throws InterruptedException {
-        Casillas casillass = new Casillas();
         int [][] nCasillas = null;
         /*for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
