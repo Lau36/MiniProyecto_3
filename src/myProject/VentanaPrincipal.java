@@ -26,6 +26,8 @@ public class VentanaPrincipal extends JFrame {
     private ModelJugadores modelJugadores;
     private CasillaHumano[][] nuevasCasillaHumanos;
     private int counter1, counter2, counter3, counter4;
+    private int id1, id2, id3, id4;
+    private int filaVariable, columnaVariable;
 
     /**
      * Constructor of GUI class
@@ -155,10 +157,31 @@ public class VentanaPrincipal extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(verUsuario, constraints);
         verUsuario.addMouseListener(escucha);
-
     }
 
+    public int getFilaVariable() {
+        return filaVariable;
+    }
 
+    public int getColumnaVariable() {
+        return columnaVariable;
+    }
+
+    public int getId1() {
+        return id1;
+    }
+
+    public int getId2() {
+        return id2;
+    }
+
+    public int getId3() {
+        return id3;
+    }
+
+    public int getId4() {
+        return id4;
+    }
 
     /**
      * Main process of the Java program
@@ -181,33 +204,41 @@ public class VentanaPrincipal extends JFrame {
             counter2 = 0;
             counter3 = 0;
             counter4 = 0;
+            id1 = 0;
+            id2 = 0;
+            id3 = 0;
+            id4 = 0;
         }
         @Override
         public void actionPerformed(ActionEvent e){
             if(e.getSource() instanceof JButton){
                 CasillaHumano casillaHumanoSeleccionada = (CasillaHumano) e.getSource(); //ya tengo la referencia de la casilla que se selecciono
-                if(counter1<4){
+                if(counter1<4){//portaaviones
                     casillaHumanoSeleccionada.setBackground(Color.GRAY);
-                    casillaHumanoSeleccionada.getFila();
-                    casillaHumanoSeleccionada.getColumna();
+                    filaVariable = casillaHumanoSeleccionada.getFila();
+                    columnaVariable = casillaHumanoSeleccionada.getColumna();
+                    id1 = 1;
                     counter1++;
                 }
-                else if(counter2<6){
+                else if(counter2<6){//submarinos
                     casillaHumanoSeleccionada.setBackground(Color.BLUE);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
+                    id2 = 2;
                     counter2++;
                 }
-                else if(counter3<6){
+                else if(counter3<6){ //destructores
                     casillaHumanoSeleccionada.setBackground(Color.RED);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
+                    id3 = 2;
                     counter3++;
                 }
-                else if(counter4<4){
+                else if(counter4<4){ //fragatas
                     casillaHumanoSeleccionada.setBackground(Color.YELLOW);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
+                    id4 = 4;
                     counter4++;
                 }
             }

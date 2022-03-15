@@ -17,6 +17,7 @@ public class ModelJugadores{
     private int hundido;
     private boolean encontrado;
     private TableroUsuario tablero;
+    private VentanaPrincipal ventanaPrincipal;
 
 
     /**
@@ -35,12 +36,10 @@ public class ModelJugadores{
     }
 
     //recorre la matriz y verifica si hay una fragata
-    public boolean verificarFragata(){
-
-        for(int i=0; i<tablero.getTableroPosicion().length;i++){
-
-            for(int j=0; j<tablero.getTableroPosicion().length;j++){
-                if(tablero.getTableroPosicion[i][j]==1){
+    public boolean verificarPortaaviones(){
+        for(int i=0; i< ventanaPrincipal.getFilaVariable();i++){
+            for(int j=0; j< ventanaPrincipal.getColumnaVariable();j++){
+                if(ventanaPrincipal.getId1()==4){
                     encontrado = true;
                     System.out.println("EL VALOR "+encontrado);
                     break;
