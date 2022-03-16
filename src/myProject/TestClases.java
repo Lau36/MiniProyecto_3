@@ -16,7 +16,7 @@ public class TestClases {
         }*/
         //casillass.inicializar();
         System.out.println();
-       /*int[][] tableroPrincipal;
+       int[][] tableroPrincipal;
         Scanner input =new Scanner(System.in);
         Scanner sc = new Scanner(System.in);
 
@@ -37,15 +37,12 @@ public class TestClases {
 
     }
         System.out.println("-------------------------------------");
-        int num = 0;
-        while(num<2){
+
             for (int i = 0; i < tableroPrincipal.length; i++) {
-                num++;
                 for (int j = 0; j < tableroPrincipal[i].length; j++) {
                     tableroPrincipal[numerof][numeroc] = 3;
                 }
             }
-        }
         System.out.println("-------------------------------------");
 
         for(int i=0; i<tableroPrincipal.length ;i++){
@@ -54,5 +51,5 @@ public class TestClases {
             }
             System.out.println();
         }
-*/
+
 }}

@@ -24,6 +24,7 @@ public class ModelJugadores{
      * Constructor of GUI class
      */
     public ModelJugadores(){
+        //ventanaPrincipal = new VentanaPrincipal();
         tablero = new TableroUsuario();
         encontrado = false;
         fragata = 1;
@@ -36,18 +37,19 @@ public class ModelJugadores{
     }
 
     //recorre la matriz y verifica si hay una fragata
-    public boolean verificarPortaaviones(){
-        for(int i=0; i< ventanaPrincipal.getFilaVariable();i++){
-            for(int j=0; j< ventanaPrincipal.getColumnaVariable();j++){
-                if(ventanaPrincipal.getId1()==4){
-                    encontrado = true;
-                    System.out.println("EL VALOR "+encontrado);
-                    break;
-                    }
-                }
-            }
-        return encontrado;
-        }
+    /*public boolean encontrarPortaavion(){
+        for(){
+            for(){
 
+            }
+        }
+        return encontrado;
+    }*/
+
+    public boolean isEncontrado() {
+        return encontrado;
     }
+}
+
+
 
