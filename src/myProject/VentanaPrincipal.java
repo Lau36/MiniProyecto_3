@@ -172,14 +172,6 @@ public class VentanaPrincipal extends JFrame {
     }
 
 
-    public int[][] getMatriz() {
-        return matriz;
-    }
-
-    public int getNumeroDeBarcos() {
-        return numeroDeBarcos;
-    }
-
 
 
     /**
@@ -212,64 +204,27 @@ public class VentanaPrincipal extends JFrame {
                 CasillaHumano casillaHumanoSeleccionada = (CasillaHumano) e.getSource(); //ya tengo la referencia de la casilla que se selecciono
                 if(counter1<4){//portaaviones -> 1
                     casillaHumanoSeleccionada.setBackground(Color.GRAY);
-                    filaVariable = casillaHumanoSeleccionada.getFila();
-                    columnaVariable = casillaHumanoSeleccionada.getColumna();
+                     filaVariable = casillaHumanoSeleccionada.getFila();
+                     columnaVariable = casillaHumanoSeleccionada.getColumna();
+                    casillaHumanoSeleccionada.getColumna();
                     System.out.println("LA FILA: "+filaVariable);
                     System.out.println("LA COLUMNA: "+columnaVariable);
                     numeroDeBarcos = 1; //Esto es el numero de barcos que hay en la flota para poder identificarlo en las funciones
                     listaPortaaviones.add("p");
                     System.out.println();
                     counter1++;
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }System.out.println();
-
-                    }System.out.println("-------------------------------");
-
-                    for (int i = 0; i < matriz.length; i++) {
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            matriz[filaVariable][columnaVariable] = 1;
-                        }
-                    }
-
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }
-                        System.out.println();
-                    }
+                    tableroUsuario.insertarPortaaviones(filaVariable,columnaVariable);
                 }
                 else if(counter2<6){//submarinos -> 2
                     filaVariable = casillaHumanoSeleccionada.getFila();
                     columnaVariable = casillaHumanoSeleccionada.getColumna();
-
-                    //modelJugadores.verificarPortaaviones();
                     casillaHumanoSeleccionada.setBackground(Color.BLUE);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
                     numeroDeBarcos = 2;
                     listaSubmarinos.add("s");
                     counter2++;
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }System.out.println();
-
-                    }System.out.println("-------------------------------");
-
-                    for (int i = 0; i < matriz.length; i++) {
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            matriz[filaVariable][columnaVariable] = 2;
-                        }
-                    }
-
-                    for(int i=0; i<matriz.length ;i++) {
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }
-                        System.out.println();
-                    }
+                    tableroUsuario.insertarSubmarinos(filaVariable,columnaVariable);
                 }
                 else if(counter3<6){ //destructores -> 3
                     filaVariable = casillaHumanoSeleccionada.getFila();
@@ -280,25 +235,7 @@ public class VentanaPrincipal extends JFrame {
                     numeroDeBarcos = 3;
                     listaDestructores.add("d");
                     counter3++;
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }System.out.println();
-
-                    }System.out.println("-------------------------------");
-
-                    for (int i = 0; i < matriz.length; i++) {
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            matriz[filaVariable][columnaVariable] = 3;
-                        }
-                    }
-
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }
-                        System.out.println();
-                    }
+                    tableroUsuario.insertarDestructores(filaVariable,columnaVariable);
                 }
                 else if(counter4<4){ //fragatas -> 4
                     filaVariable = casillaHumanoSeleccionada.getFila();
@@ -308,26 +245,9 @@ public class VentanaPrincipal extends JFrame {
                     casillaHumanoSeleccionada.getColumna();
                     numeroDeBarcos = 4;
                     listaFragata.add("f");
+                    tableroUsuario.insertarFragatas(filaVariable,columnaVariable);
                     counter4++;
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }System.out.println();
 
-                    }System.out.println("-------------------------------");
-
-                    for (int i = 0; i < matriz.length; i++) {
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            matriz[filaVariable][columnaVariable] = 4;
-                        }
-                    }
-
-                    for(int i=0; i<matriz.length ;i++){
-                        for (int j = 0; j < matriz[i].length; j++) {
-                            System.out.print(matriz[i][j] + "");
-                        }
-                        System.out.println();
-                    }
                 }
             }
         }
@@ -339,39 +259,7 @@ public class VentanaPrincipal extends JFrame {
                 VentanaAlterna ventanaAlterna = new VentanaAlterna();
                 ventanaAlterna.setVisible(true);
             }
-            if(e.getSource()==botonJugar){
-                int num = 0;
-                while(num<4){
-                    tableroUsuario.preguntarPosicionFila();
-                    tableroUsuario.preguntarPosicionColumna();
-                    tableroUsuario.insertarFragata();
-                    num++;
-                }
-                int num2 = 0;
-                while(num2<3){
-                    tableroUsuario.preguntarPosicionFilaD();
-                    tableroUsuario.preguntarPosicionColumnaD();
-                    tableroUsuario.insertarDestructor();
-                    num2++;
-                }
-                int num3 = 0;
-                while(num3<2){
-                    tableroUsuario.preguntarPosicionFilaS();
-                    tableroUsuario.preguntarPosicionColumnaS();
-                    tableroUsuario.insertarSubmarino();
-                    num3++;
-                }
-                int num4 = 0;
-                while(num4<1){
-                    tableroUsuario.preguntarPosicionFilaP();
-                    tableroUsuario.preguntarPosicionColumnaP();
-                    tableroUsuario.insertarPortaaviones();
-                    num4++;
-                }
-                tableroUsuario.getTableroPosicion();
-                tableroUsuario.verificarFragata();
 
-            }
             if(e.getSource()==botonAyuda){
                 JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
             }
