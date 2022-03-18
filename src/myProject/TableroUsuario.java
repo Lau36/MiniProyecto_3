@@ -104,4 +104,76 @@ public class TableroUsuario extends JPanel{
     public int[][] getMatriz() {
         return matriz;
     }
+    //-------------------------Para verificar----------------------------------------------------
+
+    public boolean verificarPortaavion(){
+        for(int i=0; i<matriz.length;i++){
+            if(matriz[i].length==1){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<matriz.length;j++){
+                if(matriz[i][j]==1){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+    public boolean verificarSubmarino(){
+        for(int i=0; i<matriz.length;i++){
+            if(matriz[i].length==2){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<matriz.length;j++){
+                if(matriz[i][j]==2){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+
+    public boolean verificarDestructor(){
+        for(int i=0; i<matriz.length;i++){
+            if(matriz[i].length==3){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<matriz.length;j++){
+                if(matriz[i][j]==3){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+    public boolean verificarFragata(){
+        for(int i=0; i<matriz.length;i++){
+            if(matriz[i].length==4){
+                encontrado=true;
+            }else{
+                encontrado = false;
+            }
+            for(int j=0; j<matriz.length;j++){
+                if(matriz[i][j]==4){
+                    encontrado = true;
+                    System.out.println("EL VALOR "+encontrado);
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+
 }

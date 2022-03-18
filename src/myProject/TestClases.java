@@ -16,7 +16,7 @@ public class TestClases {
         }*/
         //casillass.inicializar();
         System.out.println();
-       int[][] tableroPrincipal;
+        int[][] tableroPrincipal;
         Scanner input =new Scanner(System.in);
         Scanner sc = new Scanner(System.in);
 
@@ -32,17 +32,17 @@ public class TestClases {
         for(int i=0; i<tableroPrincipal.length ;i++){
             for (int j = 0; j < tableroPrincipal[i].length; j++) {
                 System.out.print(tableroPrincipal[i][j] + "");
-        }
+            }
             System.out.println();
 
-    }
+        }
         System.out.println("-------------------------------------");
 
-            for (int i = 0; i < tableroPrincipal.length; i++) {
-                for (int j = 0; j < tableroPrincipal[i].length; j++) {
-                    tableroPrincipal[numerof][numeroc] = 3;
-                }
+        for (int i = 0; i < tableroPrincipal.length; i++) {
+            for (int j = 0; j < tableroPrincipal[i].length; j++) {
+                tableroPrincipal[numerof][numeroc] = 3;
             }
+        }
         System.out.println("-------------------------------------");
 
         for(int i=0; i<tableroPrincipal.length ;i++){
@@ -51,5 +51,40 @@ public class TestClases {
             }
             System.out.println();
         }
+
+         for(int i= 0; i<tableroPrincipal.length;i++){
+             if(tableroPrincipal[i].length == 3){
+                // tableroPrincipal[i] = 5;
+             }
+                for(int j=0; j<tableroPrincipal[i].length;j++){
+                    if(tablero.getMatriz()[i][j] == 3){
+                        tableroPrincipal[i][j] = 5;
+                        System.out.println("LA MATRIZ NUEVA ES: "+tableroPrincipal);
+                    }
+                    else{
+                        System.out.println("no quise hacer ni mierda yo");
+                    }
+                }
+         }
+
+            /*for(int i=0; i<matriz.length;i++){
+                if(matriz[i].length==1){
+                    encontrado=true;
+                }else{
+                    encontrado = false;
+                }
+                for(int j=0; j<matriz.length;j++){
+                    if(matriz[i][j]==1){
+                        encontrado = true;
+                        System.out.println("EL VALOR "+encontrado);
+                        break;
+                    }
+                }
+            }
+            return encontrado;
+        }*/
+
+
+
 
 }}

@@ -148,7 +148,7 @@ public class VentanaPrincipal extends JFrame {
         this.add(botonAyuda, constraints);
         botonAyuda.addMouseListener(escucha);
 
-        botonJugar = new JButton("Reiniciar");
+        botonJugar = new JButton("Verificar");
         //ImageIcon imageBotonJugar = new ImageIcon(getClass().getResource("/recursos/jugar.jpeg"));
         //botonJugar.setIcon(imageBotonJugar);
         botonJugar.setPreferredSize(new Dimension(120, 45));
@@ -214,6 +214,7 @@ public class VentanaPrincipal extends JFrame {
                     System.out.println();
                     counter1++;
                     tableroUsuario.insertarPortaaviones(filaVariable,columnaVariable);
+                    tableroUsuario.verificarPortaavion();
                 }
                 else if(counter2<6){//submarinos -> 2
                     filaVariable = casillaHumanoSeleccionada.getFila();
@@ -247,7 +248,7 @@ public class VentanaPrincipal extends JFrame {
                     listaFragata.add("f");
                     tableroUsuario.insertarFragatas(filaVariable,columnaVariable);
                     counter4++;
-
+                    modelJugadores.verificarDisparoPortaavion(filaVariable, columnaVariable);
                 }
             }
         }
@@ -258,13 +259,17 @@ public class VentanaPrincipal extends JFrame {
             if(e.getSource()==verUsuario){
                 VentanaAlterna ventanaAlterna = new VentanaAlterna();
                 ventanaAlterna.setVisible(true);
-            }
+                //ventanaAlterna.dispose();
 
+            }
             if(e.getSource()==botonAyuda){
                 JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
             }
             if(e.getSource()==botonSalir){
                 System.exit(0);
+            }
+            if(e.getSource() == botonJugar ){
+
             }
 
         }
