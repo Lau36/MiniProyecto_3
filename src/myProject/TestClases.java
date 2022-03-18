@@ -1,11 +1,13 @@
 package myProject;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class TestClases {
     public static void main(String[] args) throws InterruptedException {
-        int [][] nCasillas = null;
+        ModelComputador modelComputador = new ModelComputador();
+        ModelJugador modelJugador = new ModelJugador();
+
+
         /*for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
                 JLabel casilla = new JLabel();
@@ -14,6 +16,7 @@ public class TestClases {
                 System.out.println(nCasillas[i][j]);
             }
         }*/
+        /*
         //casillass.inicializar();
         System.out.println();
         int[][] tableroPrincipal;
@@ -21,7 +24,7 @@ public class TestClases {
         Scanner sc = new Scanner(System.in);
 
         TableroUsuario tablero = new TableroUsuario();
-        ModelJugadores model = new ModelJugadores();
+        ModelJugador model = new ModelJugador();
         tableroPrincipal = new int [10][10];
 
         System.out.println("Ingresa tu destructor en la columna:");

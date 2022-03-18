@@ -24,6 +24,8 @@ public class VentanaAlterna extends JFrame {
     private int[][] matrizComputador;
     private JButton botonPintar;
     private Escucha escucha;
+    private int numAleatorio;
+    private int numAleatorioF, numAleatorioC;
 
     /**
      * Constructor of GUI class
@@ -59,6 +61,7 @@ public class VentanaAlterna extends JFrame {
         counter2 = 0;
         counter3 = 0;
         counter4 = 0;
+        numAleatorio = 0;
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(612, 131));
@@ -117,6 +120,7 @@ public class VentanaAlterna extends JFrame {
         botonPintar.addActionListener(escucha);
     }
 
+
     /**
      * Main process of the Java program
      *
@@ -136,16 +140,43 @@ public class VentanaAlterna extends JFrame {
     private class Escucha implements ActionListener{
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e){
             if(e.getSource() == botonPintar){
                 Random aleatorio = new Random();
-                tablerosAleatorios(aleatorio.nextInt(5));
-
+                System.out.println("El numero aleatorio es: "+numAleatorio);
+                numAleatorio = aleatorio.nextInt(5);
+                tablerosAleatorios(numAleatorio);
+                System.out.println();
+                mostrarLaMatriz(modelComputador.getMatrizC());
             }
+
         }
     }
 
+    public int getNumAleatorio() {
+        System.out.println("El numero aleatorio es: "+numAleatorio);
+        return numAleatorio;
+    }
+
+    public void mostrarLaMatriz(int [][] matriz){
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + "");
+            }
+            System.out.println();
+
+        }
+        System.out.println("-------------------------------");
+
+    }
+
+    public void ataquesComputadora(){
+
+    }
+
+
 //--------Inicio de la funcion eternaaaa--------------------------------------------------------------------------------------------------------
+
     public void tablerosAleatorios(int valor){
         if(valor==0){
             while (counter1 < 4){

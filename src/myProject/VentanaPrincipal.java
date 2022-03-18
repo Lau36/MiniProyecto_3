@@ -6,10 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 /**
- *
  * @version v.1.0.0 date:04/03/2022
  * @autors Laura Jaimes, laura.jaimes@correounivalle.edu.co, 2040430-3743
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
@@ -20,24 +18,23 @@ public class VentanaPrincipal extends JFrame {
     private Header headerProject;
     private JPanel panelPosicion, panelPrincipal;
     private JButton botonSalir, botonAyuda, botonJugar, verUsuario;
-    private ImageIcon imageHeader;
-    private boolean encontrado;
     private Escucha escucha;
     private Canva canva;
     private TableroUsuario tableroUsuario;
-    private ModelJugadores modelJugadores;
+    private ModelJugador modelJugador;
+    private ModelComputador modelComputador;
     private CasillaHumano[][] nuevasCasillaHumanos;
     private CasillaMaquina[][] nuevasCasillaMaquina;
+    private VentanaAlterna ventanaAlterna;
     private int counter1, counter2, counter3, counter4;
-    private ArrayList<String> listaPortaaviones, listaDestructores, listaSubmarinos, listaFragata;
-    private int numeroDeBarcos;
     private int filaVariable, columnaVariable;
-    private int [][] matriz;
+    private int estado;
+
 
     /**
      * Constructor of GUI class
      */
-    public VentanaPrincipal(){
+    public VentanaPrincipal() {
         this.setContentPane(new Canva());
         initVentana();
         //Default JFrame configuration
@@ -60,16 +57,15 @@ public class VentanaPrincipal extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
-        encontrado = false;
-        listaPortaaviones = new ArrayList<String>();
-        listaDestructores = new ArrayList<String>();
-        listaFragata = new ArrayList<String>();
-        listaSubmarinos = new ArrayList<String>();
         //casillas = new CasillaHumano();
         tableroUsuario = new TableroUsuario();
-        modelJugadores = new ModelJugadores();
+        modelJugador = new ModelJugador();
+        modelComputador = new ModelComputador();
         nuevasCasillaHumanos = new CasillaHumano[10][10];
-        matriz = new int[10][10];
+        nuevasCasillaMaquina = new CasillaMaquina[10][10];
+        ventanaAlterna = new VentanaAlterna();
+        ventanaAlterna.setVisible(false);
+
 
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
@@ -85,14 +81,14 @@ public class VentanaPrincipal extends JFrame {
         headerProject.setBackground(Color.WHITE);
 
         panelPosicion = new JPanel();
-        panelPosicion.setLayout(new GridLayout(10,10));
+        panelPosicion.setLayout(new GridLayout(10, 10));
 
         //Crea las casillas y las visualiza
-        for(int i=0; i<10; i++){
-            for(int j=0; j<10; j++){
-                nuevasCasillaHumanos[i][j]= new CasillaHumano(i,j);
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                nuevasCasillaHumanos[i][j] = new CasillaHumano(i, j);
                 nuevasCasillaHumanos[i][j].addActionListener(escucha);
-                nuevasCasillaHumanos[i][j].setPreferredSize(new Dimension(20,20));
+                nuevasCasillaHumanos[i][j].setPreferredSize(new Dimension(20, 20));
                 panelPosicion.add(nuevasCasillaHumanos[i][j]);
                 panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
                 panelPosicion.setBackground(Color.CYAN);
@@ -106,14 +102,13 @@ public class VentanaPrincipal extends JFrame {
         }
 
         panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayout(10,10));
-        //panelPrincipal.setPreferredSize(new Dimension(300,300));
-        for(int i=0; i<10; i++){
-            for(int j=0; j<10; j++){
-                nuevasCasillaHumanos[i][j]=new CasillaHumano(i,j);
-                nuevasCasillaHumanos[i][j].addActionListener(escucha);
-                panelPrincipal.add(nuevasCasillaHumanos[i][j]);
-                nuevasCasillaHumanos[i][j].setPreferredSize(new Dimension(20,20));
+        panelPrincipal.setLayout(new GridLayout(10, 10));
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                nuevasCasillaMaquina[i][j] = new CasillaMaquina(i, j);
+                nuevasCasillaMaquina[i][j].addMouseListener(escucha);
+                panelPrincipal.add(nuevasCasillaMaquina[i][j]);
+                nuevasCasillaMaquina[i][j].setPreferredSize(new Dimension(20, 20));
                 panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
                 constraints.gridx = 2;
                 constraints.gridy = 1;
@@ -139,7 +134,7 @@ public class VentanaPrincipal extends JFrame {
         botonAyuda = new JButton("Ayuda");
         botonAyuda.setPreferredSize(new Dimension(108, 45));
         //ImageIcon imageBotonAyuda = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
-       //botonAyuda.setIcon(imageBotonAyuda);
+        //botonAyuda.setIcon(imageBotonAyuda);
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 1;
@@ -148,7 +143,7 @@ public class VentanaPrincipal extends JFrame {
         this.add(botonAyuda, constraints);
         botonAyuda.addMouseListener(escucha);
 
-        botonJugar = new JButton("Verificar");
+        botonJugar = new JButton("Jugar");
         //ImageIcon imageBotonJugar = new ImageIcon(getClass().getResource("/recursos/jugar.jpeg"));
         //botonJugar.setIcon(imageBotonJugar);
         botonJugar.setPreferredSize(new Dimension(120, 45));
@@ -172,14 +167,13 @@ public class VentanaPrincipal extends JFrame {
     }
 
 
-
-
     /**
      * Main process of the Java program
+     *
      * @param args Object used in order to send input data from command line when
      *             the program is execute by console.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             VentanaPrincipal miProjectVentanaPrincipal = new VentanaPrincipal();
         });
@@ -189,109 +183,154 @@ public class VentanaPrincipal extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha implements ActionListener, MouseListener{
-        public Escucha(){
+    private class Escucha implements ActionListener, MouseListener {
+        public Escucha() {
             counter1 = 0;
             counter2 = 0;
             counter3 = 0;
             counter4 = 0;
-
+            estado = 0;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e){
-            if(e.getSource() instanceof JButton){
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() instanceof JButton) {
                 CasillaHumano casillaHumanoSeleccionada = (CasillaHumano) e.getSource(); //ya tengo la referencia de la casilla que se selecciono
-                if(counter1<4){//portaaviones -> 1
+                if (counter1 < 4) {//portaaviones -> 1
                     casillaHumanoSeleccionada.setBackground(Color.GRAY);
-                     filaVariable = casillaHumanoSeleccionada.getFila();
-                     columnaVariable = casillaHumanoSeleccionada.getColumna();
+                    filaVariable = casillaHumanoSeleccionada.getFila();
+                    columnaVariable = casillaHumanoSeleccionada.getColumna();
                     casillaHumanoSeleccionada.getColumna();
-                    System.out.println("LA FILA: "+filaVariable);
-                    System.out.println("LA COLUMNA: "+columnaVariable);
-                    numeroDeBarcos = 1; //Esto es el numero de barcos que hay en la flota para poder identificarlo en las funciones
-                    listaPortaaviones.add("p");
+                    System.out.println("LA FILA: " + filaVariable);
+                    System.out.println("LA COLUMNA: " + columnaVariable);
                     System.out.println();
                     counter1++;
-                    tableroUsuario.insertarPortaaviones(filaVariable,columnaVariable);
+                    tableroUsuario.insertarPortaaviones(filaVariable, columnaVariable);
                     tableroUsuario.verificarPortaavion();
-                }
-                else if(counter2<6){//submarinos -> 2
+                } else if (counter2 < 6) {//submarinos -> 2
                     filaVariable = casillaHumanoSeleccionada.getFila();
                     columnaVariable = casillaHumanoSeleccionada.getColumna();
                     casillaHumanoSeleccionada.setBackground(Color.BLUE);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
-                    numeroDeBarcos = 2;
-                    listaSubmarinos.add("s");
                     counter2++;
-                    tableroUsuario.insertarSubmarinos(filaVariable,columnaVariable);
-                }
-                else if(counter3<6){ //destructores -> 3
+                    tableroUsuario.insertarSubmarinos(filaVariable, columnaVariable);
+                } else if (counter3 < 6) { //destructores -> 3
                     filaVariable = casillaHumanoSeleccionada.getFila();
                     columnaVariable = casillaHumanoSeleccionada.getColumna();
                     casillaHumanoSeleccionada.setBackground(Color.RED);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
-                    numeroDeBarcos = 3;
-                    listaDestructores.add("d");
                     counter3++;
-                    tableroUsuario.insertarDestructores(filaVariable,columnaVariable);
-                }
-                else if(counter4<4){ //fragatas -> 4
+                    tableroUsuario.insertarDestructores(filaVariable, columnaVariable);
+                } else if (counter4 < 4) { //fragatas -> 4
                     filaVariable = casillaHumanoSeleccionada.getFila();
                     columnaVariable = casillaHumanoSeleccionada.getColumna();
                     casillaHumanoSeleccionada.setBackground(Color.YELLOW);
                     casillaHumanoSeleccionada.getFila();
                     casillaHumanoSeleccionada.getColumna();
-                    numeroDeBarcos = 4;
-                    listaFragata.add("f");
-                    tableroUsuario.insertarFragatas(filaVariable,columnaVariable);
+                    tableroUsuario.insertarFragatas(filaVariable, columnaVariable);
                     counter4++;
-                    modelJugadores.verificarDisparoPortaavion(filaVariable, columnaVariable);
+                    modelJugador.verificarDisparoPortaavion(filaVariable, columnaVariable);
+                }
+
+            }
+        }
+
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getSource() instanceof JButton && e.getSource() != botonAyuda && e.getSource() != verUsuario && e.getSource() != botonSalir && e.getSource() != botonJugar) {
+                    CasillaMaquina casillaMaquinaSeleccionada = (CasillaMaquina) e.getSource();
+                    System.out.println("aaaaaa");
+                    casillaMaquinaSeleccionada.getFila();
+                    casillaMaquinaSeleccionada.getColumna();
+                    filaVariable = casillaMaquinaSeleccionada.getFila();
+                    columnaVariable = casillaMaquinaSeleccionada.getColumna();
+                    modelComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio());
+                    verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada);
+                    mostrarLaMatriz(modelComputador.getMatrizC());
+                    System.out.println(ventanaAlterna.getNumAleatorio());
+            }
+
+                if (e.getSource() == verUsuario) {
+                    VentanaAlterna ventanaAlterna = new VentanaAlterna();
+                    ventanaAlterna.setVisible(true);
+
+                }
+
+                if (e.getSource() == botonAyuda) {
+                    JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
+                }
+
+                if (e.getSource() == botonSalir) {
+                    System.exit(0);
+                }
+
+                if (e.getSource() == botonJugar) {
+                    modelComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio());
+                    mostrarLaMatriz(modelComputador.getMatrizC());
+                }
+
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e){
+
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e){
+
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e){
+
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e){
+
+            }
+        }
+
+        public void verificarCoordenada(int fila, int columna, JButton aja) {
+            for (int i = 0; i < modelComputador.getMatrizC().length; i++) {
+                for (int j = 0; j < modelComputador.getMatrizC()[i].length; j++) {
+                    mostrarLaMatriz(modelComputador.getMatrizC());
+                    if (modelComputador.getMatrizC()[fila][columna] == 1 || modelComputador.getMatrizC()[fila][columna] == 2 || modelComputador.getMatrizC()[fila][columna] == 3) {
+                            /*ImageIcon image = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
+                            casillaMaquinaSeleccionada.setIcon(image);*/
+                        aja.setBackground(Color.orange);
+                        modelComputador.getMatrizC()[fila][columna] = 5;
+                    } else if (modelComputador.getMatrizC()[fila][columna] == 4) {
+                        modelComputador.getMatrizC()[fila][columna] = 6;
+                        aja.setBackground(Color.black);
+                    } else if (modelComputador.getMatrizC()[fila][columna] == 0) {
+                        modelComputador.getMatrizC()[fila][columna] = 0;
+                        aja.setBackground(Color.CYAN);
+                    }
                 }
             }
         }
 
-
-        @Override
-        public void mouseClicked(MouseEvent e){
-            if(e.getSource()==verUsuario){
-                VentanaAlterna ventanaAlterna = new VentanaAlterna();
-                ventanaAlterna.setVisible(true);
-                //ventanaAlterna.dispose();
-
-            }
-            if(e.getSource()==botonAyuda){
-                JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
-            }
-            if(e.getSource()==botonSalir){
-                System.exit(0);
-            }
-            if(e.getSource() == botonJugar ){
+        public void mostrarLaMatriz(int[][] matriz) {
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    System.out.print(matriz[i][j] + "");
+                }
+                System.out.println();
 
             }
+            System.out.println("-------------------------------");
 
         }
 
-        @Override
-        public void mousePressed(MouseEvent e) {
-
+        public int getEstado(){
+        return estado;
         }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    }
 }
+
+
+
