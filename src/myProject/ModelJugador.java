@@ -1,8 +1,5 @@
 package myProject;
 
-import javax.swing.*;
-import java.awt.*;
-
 /**
  *
  * @version v.1.0.0 date:04/03/2022
@@ -20,7 +17,7 @@ public class ModelJugador {
     private int hundido;
     private boolean encontrado;
     private TableroUsuario tablero;
-    private ModelComputador modelComputador;
+    private TableroComputador tableroComputador;
     private VentanaPrincipal ventanaPrincipal;
 
 
@@ -53,18 +50,18 @@ public class ModelJugador {
     }
 
     public void verificarCoordenada(int fila, int columna){
-        for (int i = 0; i < modelComputador.getMatrizC().length; i++){
-            for (int j = 0; j < modelComputador.getMatrizC()[i].length; j++){
-                if (modelComputador.getMatrizC()[fila][columna] == 1 || modelComputador.getMatrizC()[fila][columna] == 2 || modelComputador.getMatrizC()[fila][columna] == 3) {
+        for (int i = 0; i < tableroComputador.getMatrizC().length; i++){
+            for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++){
+                if (tableroComputador.getMatrizC()[fila][columna] == 1 || tableroComputador.getMatrizC()[fila][columna] == 2 || tableroComputador.getMatrizC()[fila][columna] == 3) {
                             /*ImageIcon image = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
                             casillaMaquinaSeleccionada.setIcon(image);*/
-                    modelComputador.getMatrizC()[fila][columna] = 5;
+                    tableroComputador.getMatrizC()[fila][columna] = 5;
                 }
-                else if (modelComputador.getMatrizC()[fila][columna] == 4) {
-                    modelComputador.getMatrizC()[fila][columna] = 6;
+                else if (tableroComputador.getMatrizC()[fila][columna] == 4) {
+                    tableroComputador.getMatrizC()[fila][columna] = 6;
                 }
-                else if(modelComputador.getMatrizC()[fila][columna] == 0){
-                    modelComputador.getMatrizC()[fila][columna] = 0;
+                else if(tableroComputador.getMatrizC()[fila][columna] == 0){
+                    tableroComputador.getMatrizC()[fila][columna] = 0;
                 }
             }
         }

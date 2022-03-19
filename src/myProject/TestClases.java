@@ -1,10 +1,8 @@
 package myProject;
 
-import java.util.Scanner;
-
 public class TestClases {
     public static void main(String[] args) throws InterruptedException {
-        ModelComputador modelComputador = new ModelComputador();
+        TableroComputador tableroComputador = new TableroComputador();
         ModelJugador modelJugador = new ModelJugador();
 
 

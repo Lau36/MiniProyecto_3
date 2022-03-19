@@ -22,7 +22,7 @@ public class VentanaPrincipal extends JFrame {
     private Canva canva;
     private TableroUsuario tableroUsuario;
     private ModelJugador modelJugador;
-    private ModelComputador modelComputador;
+    private TableroComputador tableroComputador;
     private CasillaHumano[][] nuevasCasillaHumanos;
     private CasillaMaquina[][] nuevasCasillaMaquina;
     private VentanaAlterna ventanaAlterna;
@@ -60,7 +60,7 @@ public class VentanaPrincipal extends JFrame {
         //casillas = new CasillaHumano();
         tableroUsuario = new TableroUsuario();
         modelJugador = new ModelJugador();
-        modelComputador = new ModelComputador();
+        tableroComputador = new TableroComputador();
         nuevasCasillaHumanos = new CasillaHumano[10][10];
         nuevasCasillaMaquina = new CasillaMaquina[10][10];
         ventanaAlterna = new VentanaAlterna();
@@ -164,6 +164,8 @@ public class VentanaPrincipal extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(verUsuario, constraints);
         verUsuario.addMouseListener(escucha);
+
+        JOptionPane.showMessageDialog(null, "Antes de iniciar, te recomiendo darle click al boton ayuda y leer las instrucciones :)");
     }
 
 
@@ -206,7 +208,6 @@ public class VentanaPrincipal extends JFrame {
                     System.out.println();
                     counter1++;
                     tableroUsuario.insertarPortaaviones(filaVariable, columnaVariable);
-                    tableroUsuario.verificarPortaavion();
                 } else if (counter2 < 6) {//submarinos -> 2
                     filaVariable = casillaHumanoSeleccionada.getFila();
                     columnaVariable = casillaHumanoSeleccionada.getColumna();
@@ -247,9 +248,9 @@ public class VentanaPrincipal extends JFrame {
                     casillaMaquinaSeleccionada.getColumna();
                     filaVariable = casillaMaquinaSeleccionada.getFila();
                     columnaVariable = casillaMaquinaSeleccionada.getColumna();
-                    modelComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio());
+                    tableroComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio(),ventanaAlterna.getNuevasCasillas1(),ventanaAlterna.getCasillaMaquina());
                     verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada);
-                    mostrarLaMatriz(modelComputador.getMatrizC());
+                    mostrarLaMatriz(tableroComputador.getMatrizC());
                     System.out.println(ventanaAlterna.getNumAleatorio());
             }
 
@@ -268,8 +269,8 @@ public class VentanaPrincipal extends JFrame {
                 }
 
                 if (e.getSource() == botonJugar) {
-                    modelComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio());
-                    mostrarLaMatriz(modelComputador.getMatrizC());
+                    //tableroComputador.tablerosAleatorios();
+                    mostrarLaMatriz(tableroComputador.getMatrizC());
                 }
 
             }
@@ -295,21 +296,21 @@ public class VentanaPrincipal extends JFrame {
             }
         }
 
-        public void verificarCoordenada(int fila, int columna, JButton aja) {
-            for (int i = 0; i < modelComputador.getMatrizC().length; i++) {
-                for (int j = 0; j < modelComputador.getMatrizC()[i].length; j++) {
-                    mostrarLaMatriz(modelComputador.getMatrizC());
-                    if (modelComputador.getMatrizC()[fila][columna] == 1 || modelComputador.getMatrizC()[fila][columna] == 2 || modelComputador.getMatrizC()[fila][columna] == 3) {
+        public void verificarCoordenada(int fila, int columna, JButton matrizSeleccionada) {
+            for (int i = 0; i < tableroComputador.getMatrizC().length; i++) {
+                for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++) {
+                    mostrarLaMatriz(tableroComputador.getMatrizC());
+                    if (tableroComputador.getMatrizC()[fila][columna] == 1 || tableroComputador.getMatrizC()[fila][columna] == 2 || tableroComputador.getMatrizC()[fila][columna] == 3) {
                             /*ImageIcon image = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
                             casillaMaquinaSeleccionada.setIcon(image);*/
-                        aja.setBackground(Color.orange);
-                        modelComputador.getMatrizC()[fila][columna] = 5;
-                    } else if (modelComputador.getMatrizC()[fila][columna] == 4) {
-                        modelComputador.getMatrizC()[fila][columna] = 6;
-                        aja.setBackground(Color.black);
-                    } else if (modelComputador.getMatrizC()[fila][columna] == 0) {
-                        modelComputador.getMatrizC()[fila][columna] = 0;
-                        aja.setBackground(Color.CYAN);
+                        matrizSeleccionada.setBackground(Color.orange);
+                        tableroComputador.getMatrizC()[fila][columna] = 5;
+                    } else if (tableroComputador.getMatrizC()[fila][columna] == 4) {
+                        tableroComputador.getMatrizC()[fila][columna] = 6;
+                        matrizSeleccionada.setBackground(Color.black);
+                    } else if (tableroComputador.getMatrizC()[fila][columna] == 0) {
+                        tableroComputador.getMatrizC()[fila][columna] = 0;
+                        matrizSeleccionada.setBackground(Color.CYAN);
                     }
                 }
             }
@@ -330,6 +331,10 @@ public class VentanaPrincipal extends JFrame {
         public int getEstado(){
         return estado;
         }
+
+    public CasillaHumano[][] getNuevasCasillaHumanos() {
+        return nuevasCasillaHumanos;
+    }
 }
 
 
