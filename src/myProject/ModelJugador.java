@@ -25,19 +25,26 @@ public class ModelJugador {
      * Constructor of GUI class
      */
     public ModelJugador(){
-        //ventanaPrincipal = new VentanaPrincipal();
         tablero = new TableroUsuario();
         encontrado = false;
-        /*Portaaviones ->1
-          Submarinos -> 2
-          Destructores -> 3
-          Fragats -> 4
-        */
         agua = 0;
         tocado = 5;
         hundido = 6;
+        /*
+        Los numero con el que identificamos los barcos son los siguientes
+        Portaaviones ->1
+        Submarinos -> 2
+        Destructores -> 3
+        Fragats -> 4
+        */
     }
 
+    /**
+     *
+     *
+     * @return
+     * @version v.1.0.0 date /03/2022
+     */
     public void verificarDisparoPortaavion(int fila, int columna){
         for(int i= 0; i<tablero.getMatriz().length;i++){
             for(int j=0; j<tablero.getMatriz()[i].length;j++){
@@ -49,24 +56,32 @@ public class ModelJugador {
         }
     }
 
+    /**
+     * Verifica si en la coordenada donde se disparo hay un barco y le da el valor a la nueva matriz con los disparos
+     *
+     * @version v.1.0.0 date 18/03/2022
+     */
     public void verificarCoordenada(int fila, int columna){
         for (int i = 0; i < tableroComputador.getMatrizC().length; i++){
             for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++){
                 if (tableroComputador.getMatrizC()[fila][columna] == 1 || tableroComputador.getMatrizC()[fila][columna] == 2 || tableroComputador.getMatrizC()[fila][columna] == 3) {
-                            /*ImageIcon image = new ImageIcon(getClass().getResource("/recursos/ayudaa.jpeg"));
-                            casillaMaquinaSeleccionada.setIcon(image);*/
-                    tableroComputador.getMatrizC()[fila][columna] = 5;
+                    tableroComputador.getMatrizC()[fila][columna] = tocado;
                 }
                 else if (tableroComputador.getMatrizC()[fila][columna] == 4) {
-                    tableroComputador.getMatrizC()[fila][columna] = 6;
+                    tableroComputador.getMatrizC()[fila][columna] = hundido;
                 }
                 else if(tableroComputador.getMatrizC()[fila][columna] == 0){
-                    tableroComputador.getMatrizC()[fila][columna] = 0;
+                    tableroComputador.getMatrizC()[fila][columna] = agua;
                 }
             }
         }
     }
 
+    /**
+     * Muestra en consola la matriz con los datos
+     *
+     * @version v.1.0.0 date 18/03/2022
+     */
     public void mostrarLaMatriz(int [][] matriz){
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {

@@ -8,6 +8,9 @@ public class TableroComputador {
     private int counter1, counter2, counter3, counter4;
     private int numAleatorio;
 
+    /**
+     * Class Constructor
+     */
     public TableroComputador() {
         matriz = new int[10][10];
         counter1 = 0;
@@ -18,6 +21,11 @@ public class TableroComputador {
         numAleatorio = aleatorio.nextInt(5);
     }
 
+    /**
+     * Inserta los barcos de tipo Portaaviones a la matriz del jugador computador
+     *
+     * @version v.1.0.0 date 16/03/2022
+     */
     public void insertarPortaavionesC(int fila, int columna) {
 
         for (int i = 0; i < matriz.length; i++) {
@@ -28,6 +36,11 @@ public class TableroComputador {
 
     }
 
+    /**
+     * Inserta los barcos de tipo Submarinos a la matriz del jugador computador
+     *
+     * @version v.1.0.0 date 16/03/2022
+     */
     public void insertarSubmarinosC(int fila, int columna) {
 
         for (int i = 0; i < matriz.length; i++) {
@@ -38,6 +51,11 @@ public class TableroComputador {
 
     }
 
+    /**
+     * Inserta los barcos de tipo Destructores a la matriz del jugador computador
+     *
+     * @version v.1.0.0 date 16/03/2022
+     */
     public void insertarDestructoresC(int fila, int columna) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -47,6 +65,11 @@ public class TableroComputador {
 
     }
 
+    /**
+     * Inserta los barcos de tipo Fragata a la matriz del jugador computador
+     *
+     * @version v.1.0.0 date 16/03/2022
+     */
     public void insertarFragatasC(int fila, int columna) {
 
         for (int i = 0; i < matriz.length; i++) {
@@ -57,6 +80,11 @@ public class TableroComputador {
 
     }
 
+    /**
+     * Genera los tableros aleatorios de la flota del jugador maquina
+     *
+     * @version v.1.0.0 date 16/03/2022
+     */
     public void tablerosAleatorios(int valor, CasillaMaquina[][] nuevasCasillas1, CasillaMaquina casillaMaquina1){
         if(valor==0){
             while (counter1 < 4){
@@ -644,10 +672,22 @@ public class TableroComputador {
         }
     }
 
+    /**
+     * Getter de la matriz del computador
+     *
+     * @return La matriz del jugador computador
+     * @version v.1.0.0 date 16/03/2022
+     */
     public int[][] getMatrizC() {
         return matriz;
     }
 
+    /**
+     * Obtiene el valor del numero aleatorio
+     *
+     * @return el numero aleatorio de tipo int
+     * @version v.1.0.0 date 16/03/2022
+     */
     public int getNumAleatorio() {
         return numAleatorio;
     }

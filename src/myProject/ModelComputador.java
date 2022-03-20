@@ -7,6 +7,9 @@ import java.util.Random;
 public class ModelComputador extends JPanel {
 
 
+    /**
+     * Class Constructor
+     */
     public ModelComputador(){
 
     }

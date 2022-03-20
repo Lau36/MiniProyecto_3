@@ -259,7 +259,6 @@ public class VentanaPrincipal extends JFrame {
             if (e.getSource() instanceof JButton && e.getSource() != botonAyuda && e.getSource() != verUsuario && e.getSource() != botonSalir && e.getSource() != botonJugar) {
                     CasillaMaquina casillaMaquinaSeleccionada = (CasillaMaquina) e.getSource();
                     casillaMaquinaSeleccionada.setPreferredSize(new Dimension(20,20));
-                    System.out.println("aaaaaa");
                     casillaMaquinaSeleccionada.getFila();
                     casillaMaquinaSeleccionada.getColumna();
                     filaVariable = casillaMaquinaSeleccionada.getFila();
@@ -267,7 +266,7 @@ public class VentanaPrincipal extends JFrame {
                     tableroComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio(),ventanaAlterna.getNuevasCasillas1(),ventanaAlterna.getCasillaMaquina());
                     verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada,tableroComputador.getMatrizC());
                     mostrarLaMatriz(tableroComputador.getMatrizC());
-                    System.out.println(ventanaAlterna.getNumAleatorio());
+                    //System.out.println(ventanaAlterna.getNumAleatorio());
             }
 
                 if (e.getSource() == verUsuario){
@@ -286,7 +285,7 @@ public class VentanaPrincipal extends JFrame {
 
                 if (e.getSource() == botonJugar) {
                     //tableroComputador.tablerosAleatorios();
-                    mostrarLaMatriz(tableroComputador.getMatrizC());
+                    //mostrarLaMatriz(tableroComputador.getMatrizC());
                 }
 
             }
@@ -312,6 +311,11 @@ public class VentanaPrincipal extends JFrame {
             }
         }
 
+    /**
+     * Verifica si en una fila y columna de la matriz del oponente hay un barco y pinta hundido, agua o tocado dependiendo del barco que este en esa fila y columna
+     *
+     * @version v.1.0.0 date 17/03/2022
+     */
         public void verificarCoordenada(int fila, int columna, JButton matrizSeleccionada, int [][] matriz) {
             for (int i = 0; i < tableroComputador.getMatrizC().length; i++) {
                 for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++) {
@@ -340,6 +344,11 @@ public class VentanaPrincipal extends JFrame {
             }
         }
 
+    /**
+     * Muestra la matriz actualizada
+     *
+     * @version v.1.0.0 date 17/03/2022
+     */
         public void mostrarLaMatriz(int[][] matriz) {
             for (int i = 0; i < matriz.length; i++) {
                 for (int j = 0; j < matriz[i].length; j++) {
@@ -352,10 +361,22 @@ public class VentanaPrincipal extends JFrame {
 
         }
 
+    /**
+     * Getter del estado del juego
+     *
+     *@return el valor de tipo entero del estado del juego
+     * @version v.1.0.0 date 18/03/2022
+     */
         public int getEstado(){
         return estado;
         }
 
+    /**
+     * Getter de casillaHumanos
+     *
+     * @return la matriz de tipo CasillaHumanos
+     * @version v.1.0.0 date 18/03/2022
+     */
     public CasillaHumano[][] getNuevasCasillaHumanos() {
         return nuevasCasillaHumanos;
     }

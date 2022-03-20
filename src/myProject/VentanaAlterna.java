@@ -158,11 +158,22 @@ public class VentanaAlterna extends JFrame {
         }
     }
 
+    /**
+     * Muestra el numero aleatorio
+     *
+     * @return el valor de tipo int del numero aleatorio
+     * @version v.1.0.0 date 17/03/2022
+     */
     public int getNumAleatorio() {
         System.out.println("El numero aleatorio es: "+tableroComputador.getNumAleatorio());
         return tableroComputador.getNumAleatorio();
     }
 
+    /**
+     * Muestra la matriz actualizada
+     *
+     * @version v.1.0.0 date 18/03/2022
+     */
     public void mostrarLaMatriz(int [][] matriz){
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -175,11 +186,22 @@ public class VentanaAlterna extends JFrame {
 
     }
 
-
+    /**
+     * Getter casillaMaquina
+     *
+     *@return el valor de tipo CasillaMaquina
+     * @version v.1.0.0 date 18/03/2022
+     */
     public CasillaMaquina getCasillaMaquina() {
         return casillaMaquina;
     }
 
+    /**
+     * Getter casillaMaquina1
+     *
+     *@return el valor de tipo matriz de CasillaMaquina
+     * @version v.1.0.0 date 18/03/2022
+     */
     public CasillaMaquina[][] getNuevasCasillas1() {
         return nuevasCasillas1;
     }
