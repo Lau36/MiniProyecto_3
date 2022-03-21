@@ -14,15 +14,15 @@ import java.awt.event.MouseListener;
  */
 public class VentanaPrincipal extends JFrame {
     public static final String MENSAJE_INICIO = "Hola!! bienvenido al juego Battleship\n" +
-            "Al inicio del juego podras ubicar tu flota como se muestra en la imagen, " +
-            " y tendras 4 casillas para ubicar los portaaviones, 6 para los submarinos, 6 para los destructores y 4 para las fragatas\n" +
-            "Recuerda que los barcos son de la siguiente manera:\n"+
-            "1. 1 portaavion(gris) que ocupa 4 casillas cada uno\n" +
-            "2. 2 submarinos(azules) que ocupan 3 casillas cada uno\n" +
-            "3. 3 destructores(rojos) que ocupan 2 casillas cada uno\n" +
-            "4. 4 fragatas(amarillos) que ocupan 1 casilla cada una\n" +
-            "Después de tener tu flota, podras iniciar atacando la flota enemiga (Tablero principal)\n" +
-            "Después de tu ataque, le podras dar al boton start para que el enemigo te ataque, a lo que termine tu puedes volver a atacarlo y asi sucesivamente\n" +
+            "Al inicio del juego podras ubicar tu flota (Tablero de posición) como se muestra en la imagen, " +
+            "y tendras 4 casillas para ubicar los portaaviones, 6 para los submarinos, 6 para los destructores y 4 para las fragatas\n" +
+            "Recuerda que los barcos son de la siguiente forma:\n" +
+            "* 1 portaavion(gris) que ocupa 4 casillas\n" +
+            "* 2 submarinos(azules) que ocupan 3 casillas cada uno\n" +
+            "* 3 destructores(rojos) que ocupan 2 casillas cada uno\n" +
+            "* 4 fragatas(amarillos) que ocupan 1 casilla cada una\n" +
+            "Al tener lista tu flota, podras iniciar atacando la flota enemiga (Tablero principal)\n" +
+            "Después de tu ataque, le podras dar al boton start para que el enemigo te ataque, a lo que termine, tu puedes volver a atacarlo y asi sucesivamente\n" +
             "Como un bonus, con el boton de view opponent puedes ver la flota de tu oponente (primero tienes que darle al boton paint para observarla)\n" +
             "No ha sido nada mas, mucha suerte :)";
 
@@ -72,7 +72,6 @@ public class VentanaPrincipal extends JFrame {
         //Create Listener Object and Control Object
         escucha = new Escucha();
         modelComputador = new ModelComputador();
-        //casillas = new CasillaHumano();
         tableroUsuario = new TableroUsuario();
         modelJugador = new ModelJugador();
         tableroComputador = new TableroComputador();
@@ -85,7 +84,7 @@ public class VentanaPrincipal extends JFrame {
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(500, 120));
         imageHeader = new ImageIcon(getClass().getResource("/recursos/header.jpeg"));
-        imageHeader = new ImageIcon(imageHeader.getImage().getScaledInstance(500,120, Image.SCALE_SMOOTH));
+        imageHeader = new ImageIcon(imageHeader.getImage().getScaledInstance(500, 120, Image.SCALE_SMOOTH));
         headerProject.setIcon(imageHeader);
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -137,7 +136,7 @@ public class VentanaPrincipal extends JFrame {
         botonAyuda = new JButton("Ayuda");
         botonAyuda.setPreferredSize(new Dimension(130, 50));
         imageBotonAyuda = new ImageIcon(getClass().getResource("/recursos/ayuda.jpg"));
-        imageBotonAyuda = new ImageIcon(imageBotonAyuda.getImage().getScaledInstance(137,50, Image.SCALE_SMOOTH));
+        imageBotonAyuda = new ImageIcon(imageBotonAyuda.getImage().getScaledInstance(137, 50, Image.SCALE_SMOOTH));
         botonAyuda.setIcon(imageBotonAyuda);
         botonAyuda.setContentAreaFilled(false);
         constraints.gridx = 0;
@@ -150,7 +149,7 @@ public class VentanaPrincipal extends JFrame {
 
         botonJugar = new JButton("Jugar");
         imageBotonJugar = new ImageIcon(getClass().getResource("/recursos/iniciar.jpeg"));
-        imageBotonJugar = new ImageIcon(imageBotonJugar.getImage().getScaledInstance(137,50, Image.SCALE_SMOOTH));
+        imageBotonJugar = new ImageIcon(imageBotonJugar.getImage().getScaledInstance(137, 50, Image.SCALE_SMOOTH));
         botonJugar.setIcon(imageBotonJugar);
         botonJugar.setContentAreaFilled(false);
         botonJugar.setPreferredSize(new Dimension(130, 50));
@@ -166,7 +165,7 @@ public class VentanaPrincipal extends JFrame {
         verUsuario = new JButton("Ver oponente");
         verUsuario.setPreferredSize(new Dimension(130, 50));
         imageBotonVerOponente = new ImageIcon(getClass().getResource("/recursos/oponente.jpeg"));
-        imageBotonVerOponente = new ImageIcon(imageBotonVerOponente.getImage().getScaledInstance(137,50, Image.SCALE_SMOOTH));
+        imageBotonVerOponente = new ImageIcon(imageBotonVerOponente.getImage().getScaledInstance(137, 50, Image.SCALE_SMOOTH));
         verUsuario.setIcon(imageBotonVerOponente);
         verUsuario.setContentAreaFilled(false);
         constraints.gridx = 1;
@@ -253,132 +252,129 @@ public class VentanaPrincipal extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() instanceof JButton && e.getSource() != botonAyuda && e.getSource() != verUsuario && e.getSource() != botonSalir && e.getSource() != botonJugar) {
                 CasillaMaquina casillaMaquinaSeleccionada = (CasillaMaquina) e.getSource();
-                while(estado == 0){
-                botonJugar.addMouseListener(escucha);
-                botonJugar.setVisible(true);
-                casillaMaquinaSeleccionada.setPreferredSize(new Dimension(20, 20));
-                casillaMaquinaSeleccionada.getFila();
-                casillaMaquinaSeleccionada.getColumna();
-                filaVariable = casillaMaquinaSeleccionada.getFila();
-                columnaVariable = casillaMaquinaSeleccionada.getColumna();
-                tableroComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio(), ventanaAlterna.getNuevasCasillas1(), ventanaAlterna.getCasillaMaquina());
-                verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada, tableroComputador.getMatrizC());
-                mostrarLaMatriz(tableroComputador.getMatrizC());
-                estado = 1;
-            }
-                    //System.out.println(ventanaAlterna.getNumAleatorio());
-            }
-
-                if (e.getSource() == verUsuario){
-                    VentanaAlterna ventanaAlterna = new VentanaAlterna();
-                    ventanaAlterna.setVisible(true);
-                    verUsuario.removeMouseListener(escucha);
-                    verUsuario.setVisible(false);
-
+                while (estado == 0) {
+                    botonJugar.addMouseListener(escucha);
+                    botonJugar.setVisible(true);
+                    casillaMaquinaSeleccionada.setPreferredSize(new Dimension(20, 20));
+                    casillaMaquinaSeleccionada.getFila();
+                    casillaMaquinaSeleccionada.getColumna();
+                    filaVariable = casillaMaquinaSeleccionada.getFila();
+                    columnaVariable = casillaMaquinaSeleccionada.getColumna();
+                    tableroComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio(), ventanaAlterna.getNuevasCasillas1(), ventanaAlterna.getCasillaMaquina());
+                    verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada, tableroComputador.getMatrizC());
+                    mostrarLaMatriz(tableroComputador.getMatrizC());
+                    estado = 1;
                 }
+            }
 
-                if (e.getSource() == botonAyuda) {
-                    imageTablero = new ImageIcon(getClass().getResource("/recursos/inicio.jpeg"));
-                    imageTablero = new ImageIcon(imageTablero.getImage().getScaledInstance(301,309, Image.SCALE_SMOOTH));
-                    JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE, imageTablero);
-                }
-
-                if (e.getSource() == botonSalir) {
-                    System.exit(0);
-                }
-
-                if (e.getSource() == botonJugar){
-                    modelComputador.ataques(tableroUsuario.getMatriz(), nuevasCasillaHumanos,matriz);
-                    estado = 0;
-                    botonJugar.removeMouseListener(escucha);
-                    botonJugar.setVisible(false);
-                    mostrarLaMatriz(tableroUsuario.getMatriz());
-                    //tableroComputador.tablerosAleatorios();
-                    //mostrarLaMatriz(tableroComputador.getMatrizC());
-                }
+            if (e.getSource() == verUsuario) {
+                VentanaAlterna ventanaAlterna = new VentanaAlterna();
+                ventanaAlterna.setVisible(true);
+                verUsuario.removeMouseListener(escucha);
+                verUsuario.setVisible(false);
 
             }
 
-            @Override
-            public void mousePressed (MouseEvent e){
-
+            if (e.getSource() == botonAyuda) {
+                imageTablero = new ImageIcon(getClass().getResource("/recursos/inicio.jpeg"));
+                imageTablero = new ImageIcon(imageTablero.getImage().getScaledInstance(301, 309, Image.SCALE_SMOOTH));
+                JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE, imageTablero);
             }
 
-            @Override
-            public void mouseReleased (MouseEvent e){
-
+            if (e.getSource() == botonSalir) {
+                System.exit(0);
             }
 
-            @Override
-            public void mouseEntered (MouseEvent e){
-
+            if (e.getSource() == botonJugar) {
+                modelComputador.ataques(tableroUsuario.getMatriz(), nuevasCasillaHumanos, matriz);
+                estado = 0;
+                botonJugar.removeMouseListener(escucha);
+                botonJugar.setVisible(false);
+                mostrarLaMatriz(tableroUsuario.getMatriz());
             }
 
-            @Override
-            public void mouseExited (MouseEvent e){
-
-            }
         }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
 
     /**
      * Verifica si en una fila y columna de la matriz del oponente hay un barco y pinta hundido, agua o tocado dependiendo del barco que este en esa fila y columna
      *
      * @version v.1.0.0 date 17/03/2022
      */
-        public void verificarCoordenada(int fila, int columna, JButton matrizSeleccionada, int [][] matriz) {
-            for (int i = 0; i < tableroComputador.getMatrizC().length; i++) {
-                for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++) {
-                    mostrarLaMatriz(tableroComputador.getMatrizC());
-                    if (matriz[fila][columna] == 1 || tableroComputador.getMatrizC()[fila][columna] == 2 || tableroComputador.getMatrizC()[fila][columna] == 3) {
-                        imageTocado = new ImageIcon(getClass().getResource("/recursos/bomba 1.png"));
-                        imageTocado = new ImageIcon(imageTocado.getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH));
-                        matrizSeleccionada.setIcon(imageTocado);
-                        matrizSeleccionada.setContentAreaFilled(false);
-                        matriz[fila][columna] = 5;
-                    } else if (matriz[fila][columna] == 4) {
-                        imageHundido = new ImageIcon(getClass().getResource("/recursos/fuego.png"));
-                        imageHundido = new ImageIcon(imageHundido.getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH));
-                        matrizSeleccionada.setIcon(imageHundido);
-                        matrizSeleccionada.setContentAreaFilled(false);
-                        matriz[fila][columna] = 6;
+    public void verificarCoordenada(int fila, int columna, JButton matrizSeleccionada, int[][] matriz) {
+        for (int i = 0; i < tableroComputador.getMatrizC().length; i++) {
+            for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++) {
+                mostrarLaMatriz(tableroComputador.getMatrizC());
+                if (matriz[fila][columna] == 1 || tableroComputador.getMatrizC()[fila][columna] == 2 || tableroComputador.getMatrizC()[fila][columna] == 3) {
+                    imageTocado = new ImageIcon(getClass().getResource("/recursos/bomba 1.png"));
+                    imageTocado = new ImageIcon(imageTocado.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+                    matrizSeleccionada.setIcon(imageTocado);
+                    matrizSeleccionada.setContentAreaFilled(false);
+                    matriz[fila][columna] = 5;
+                } else if (matriz[fila][columna] == 4) {
+                    imageHundido = new ImageIcon(getClass().getResource("/recursos/fuego.png"));
+                    imageHundido = new ImageIcon(imageHundido.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+                    matrizSeleccionada.setIcon(imageHundido);
+                    matrizSeleccionada.setContentAreaFilled(false);
+                    matriz[fila][columna] = 6;
 
-                    } else if (matriz[fila][columna] == 0) {
-                        matriz[fila][columna] = 0;
-                        imageAgua = new ImageIcon(getClass().getResource("/recursos/equis.png"));
-                        imageAgua = new ImageIcon(imageAgua.getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH));
-                        matrizSeleccionada.setIcon(imageAgua);
-                        matrizSeleccionada.setContentAreaFilled(false);
-                    }
+                } else if (matriz[fila][columna] == 0) {
+                    matriz[fila][columna] = 0;
+                    imageAgua = new ImageIcon(getClass().getResource("/recursos/equis.png"));
+                    imageAgua = new ImageIcon(imageAgua.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+                    matrizSeleccionada.setIcon(imageAgua);
+                    matrizSeleccionada.setContentAreaFilled(false);
                 }
             }
         }
+    }
 
     /**
      * Muestra la matriz actualizada
      *
      * @version v.1.0.0 date 17/03/2022
      */
-        public void mostrarLaMatriz(int[][] matriz) {
-            for (int i = 0; i < matriz.length; i++) {
-                for (int j = 0; j < matriz[i].length; j++) {
-                    System.out.print(matriz[i][j] + "");
-                }
-                System.out.println();
-
+    public void mostrarLaMatriz(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + "");
             }
-            System.out.println("-------------------------------");
+            System.out.println();
 
         }
+        System.out.println("-------------------------------");
+
+    }
 
     /**
      * Getter del estado del juego
      *
-     *@return el valor de tipo entero del estado del juego
+     * @return el valor de tipo entero del estado del juego
      * @version v.1.0.0 date 18/03/2022
      */
-        public int getEstado(){
+    public int getEstado() {
         return estado;
-        }
+    }
 
     /**
      * Getter de casillaHumanos

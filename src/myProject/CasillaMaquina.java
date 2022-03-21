@@ -2,14 +2,14 @@ package myProject;
 
 import javax.swing.*;
 
-public class CasillaMaquina extends JButton{
+public class CasillaMaquina extends JButton {
     private int fila;
     private int columna;
 
     /**
      * Class Constructor
      */
-    public CasillaMaquina(int fila, int columna){
+    public CasillaMaquina(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
     }
@@ -20,7 +20,7 @@ public class CasillaMaquina extends JButton{
      * @return el valor de tipo int de la fila
      * @version v.1.0.0 date 14/03/2022
      */
-    public int getFila(){
+    public int getFila() {
         return fila;
     }
 
@@ -30,7 +30,7 @@ public class CasillaMaquina extends JButton{
      * @return el valor de tipo int de la columna
      * @version v.1.0.0 date 14/03/2022
      */
-    public int getColumna(){
+    public int getColumna() {
         return columna;
     }
 }

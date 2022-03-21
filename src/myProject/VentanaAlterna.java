@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 /**
- *
  * @version v.1.0.0 date:04/03/2022
  * @autors Laura Jaimes, laura.jaimes@correounivalle.edu.co, 2040430-3743
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
@@ -23,7 +22,6 @@ public class VentanaAlterna extends JFrame {
     private int[][] matrizComputador;
     private JButton botonPintar;
     private Escucha escucha;
-
     private int numAleatorioF, numAleatorioC;
 
     /**
@@ -94,9 +92,9 @@ public class VentanaAlterna extends JFrame {
 
 
         botonPintar = new JButton("PINTAR");
-        botonPintar.setPreferredSize(new Dimension(130,50));
+        botonPintar.setPreferredSize(new Dimension(130, 50));
         pintar = new ImageIcon(getClass().getResource("/recursos/pintar.jpeg"));
-        pintar = new ImageIcon(pintar.getImage().getScaledInstance(140,50, Image.SCALE_SMOOTH));
+        pintar = new ImageIcon(pintar.getImage().getScaledInstance(140, 50, Image.SCALE_SMOOTH));
         botonPintar.setIcon(pintar);
         botonPintar.setContentAreaFilled(false);
         constraints.gridx = 1;
@@ -126,15 +124,15 @@ public class VentanaAlterna extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
 
-    private class Escucha implements ActionListener{
+    private class Escucha implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e){
-            if(e.getSource() == botonPintar){
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == botonPintar) {
                 Random aleatorio = new Random();
                 //System.out.println("El numero aleatorio es: "+tableroComputador.getNumAleatorio());
                 //tableroComputador.getNumAleatorio() = tableroComputador.getNumAleatorio();
-                tableroComputador.tablerosAleatorios(tableroComputador.getNumAleatorio(),nuevasCasillas1,casillaMaquina);
+                tableroComputador.tablerosAleatorios(tableroComputador.getNumAleatorio(), nuevasCasillas1, casillaMaquina);
                 System.out.println();
                 mostrarLaMatriz(tableroComputador.getMatrizC());
             }
@@ -149,7 +147,7 @@ public class VentanaAlterna extends JFrame {
      * @version v.1.0.0 date 17/03/2022
      */
     public int getNumAleatorio() {
-        System.out.println("El numero aleatorio es: "+tableroComputador.getNumAleatorio());
+        System.out.println("El numero aleatorio es: " + tableroComputador.getNumAleatorio());
         return tableroComputador.getNumAleatorio();
     }
 
@@ -158,7 +156,7 @@ public class VentanaAlterna extends JFrame {
      *
      * @version v.1.0.0 date 18/03/2022
      */
-    public void mostrarLaMatriz(int [][] matriz){
+    public void mostrarLaMatriz(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 System.out.print(matriz[i][j] + "");
@@ -173,7 +171,7 @@ public class VentanaAlterna extends JFrame {
     /**
      * Getter casillaMaquina
      *
-     *@return el valor de tipo CasillaMaquina
+     * @return el valor de tipo CasillaMaquina
      * @version v.1.0.0 date 18/03/2022
      */
     public CasillaMaquina getCasillaMaquina() {
@@ -183,13 +181,12 @@ public class VentanaAlterna extends JFrame {
     /**
      * Getter casillaMaquina1
      *
-     *@return el valor de tipo matriz de CasillaMaquina
+     * @return el valor de tipo matriz de CasillaMaquina
      * @version v.1.0.0 date 18/03/2022
      */
     public CasillaMaquina[][] getNuevasCasillas1() {
         return nuevasCasillas1;
     }
-
 
 
 }

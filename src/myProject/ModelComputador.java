@@ -19,7 +19,7 @@ public class ModelComputador extends JPanel {
     /**
      * Class Constructor
      */
-    public ModelComputador(){
+    public ModelComputador() {
         /*
         Los numero con el que identificamos los barcos son los siguientes
         Portaaviones ->1
@@ -35,32 +35,32 @@ public class ModelComputador extends JPanel {
      *
      * @version v.1.0.0 date 21/03/2022
      */
-    public void ataques(int[][] matriz1, CasillaHumano[][] nuevasCasillas, CasillaHumano matriz2){
+    public void ataques(int[][] matriz1, CasillaHumano[][] nuevasCasillas, CasillaHumano matriz2) {
         Random aleatorio = new Random();
         fila = aleatorio.nextInt(10);
-        columna= aleatorio.nextInt(10);
-        for(int i=0; i<matriz1.length ;i++){
-            for(int j = 0; j<matriz1[i].length; j++){
-                if(matriz1[fila][columna]== 1 || matriz1[fila][columna]== 2 || matriz1[fila][columna]== 3){//recorre la matriz de la logica y pinta en la matriz del gui
+        columna = aleatorio.nextInt(10);
+        for (int i = 0; i < matriz1.length; i++) {
+            for (int j = 0; j < matriz1[i].length; j++) {
+                if (matriz1[fila][columna] == 1 || matriz1[fila][columna] == 2 || matriz1[fila][columna] == 3) {//recorre la matriz de la logica y pinta en la matriz del gui
                     matriz2 = nuevasCasillas[fila][columna];
                     imageTocado = new ImageIcon(getClass().getResource("/recursos/bomba 1.png"));
-                    imageTocado = new ImageIcon(imageTocado.getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                    imageTocado = new ImageIcon(imageTocado.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
                     matriz2.setIcon(imageTocado);
                     matriz2.setContentAreaFilled(false);
                     matriz1[fila][columna] = 5;
                 }
-                if(matriz1[fila][columna]== 4){
+                if (matriz1[fila][columna] == 4) {
                     matriz2 = nuevasCasillas[fila][columna];
                     imageHundido = new ImageIcon(getClass().getResource("/recursos/fuego.png"));
-                    imageHundido = new ImageIcon(imageHundido.getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                    imageHundido = new ImageIcon(imageHundido.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
                     matriz2.setIcon(imageHundido);
                     matriz2.setContentAreaFilled(false);
                     matriz1[fila][columna] = 6;
                 }
-                if(matriz1[fila][columna]== 0){
+                if (matriz1[fila][columna] == 0) {
                     matriz2 = nuevasCasillas[fila][columna];
                     imageAgua = new ImageIcon(getClass().getResource("/recursos/equis.png"));
-                    imageAgua = new ImageIcon(imageAgua.getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                    imageAgua = new ImageIcon(imageAgua.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
                     matriz2.setIcon(imageAgua);
                     matriz2.setContentAreaFilled(false);
                     matriz1[fila][columna] = 0;

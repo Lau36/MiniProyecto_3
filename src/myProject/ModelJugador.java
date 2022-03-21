@@ -1,30 +1,24 @@
 package myProject;
 
 /**
- *
  * @version v.1.0.0 date:04/03/2022
  * @autors Laura Jaimes, laura.jaimes@correounivalle.edu.co, 2040430-3743
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 
 public class ModelJugador {
-    private int fragata;
-    private int destructores;
-    private int submarinos;
-    private int portaaviones;
     private int agua;
     private int tocado;
     private int hundido;
     private boolean encontrado;
     private TableroUsuario tablero;
     private TableroComputador tableroComputador;
-    private VentanaPrincipal ventanaPrincipal;
 
 
     /**
      * Constructor of GUI class
      */
-    public ModelJugador(){
+    public ModelJugador() {
         tablero = new TableroUsuario();
         encontrado = false;
         agua = 0;
@@ -45,16 +39,14 @@ public class ModelJugador {
      *
      * @version v.1.0.0 date 18/03/2022
      */
-    public void verificarCoordenada(int fila, int columna){
-        for (int i = 0; i < tableroComputador.getMatrizC().length; i++){
-            for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++){
+    public void verificarCoordenada(int fila, int columna) {
+        for (int i = 0; i < tableroComputador.getMatrizC().length; i++) {
+            for (int j = 0; j < tableroComputador.getMatrizC()[i].length; j++) {
                 if (tableroComputador.getMatrizC()[fila][columna] == 1 || tableroComputador.getMatrizC()[fila][columna] == 2 || tableroComputador.getMatrizC()[fila][columna] == 3) {
                     tableroComputador.getMatrizC()[fila][columna] = tocado;
-                }
-                else if (tableroComputador.getMatrizC()[fila][columna] == 4) {
+                } else if (tableroComputador.getMatrizC()[fila][columna] == 4) {
                     tableroComputador.getMatrizC()[fila][columna] = hundido;
-                }
-                else if(tableroComputador.getMatrizC()[fila][columna] == 0){
+                } else if (tableroComputador.getMatrizC()[fila][columna] == 0) {
                     tableroComputador.getMatrizC()[fila][columna] = agua;
                 }
             }
@@ -66,7 +58,7 @@ public class ModelJugador {
      *
      * @version v.1.0.0 date 18/03/2022
      */
-    public void mostrarLaMatriz(int [][] matriz){
+    public void mostrarLaMatriz(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 System.out.print(matriz[i][j] + "");

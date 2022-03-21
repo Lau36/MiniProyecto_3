@@ -9,8 +9,6 @@ import javax.swing.*;
  */
 public class TableroUsuario extends JPanel {
     private int[][] matriz;
-    private CasillaHumano casillaHumano;
-    private boolean encontrado;
     private int valor; //el valor que da el usuario de la posicion
 
     /**
@@ -18,7 +16,6 @@ public class TableroUsuario extends JPanel {
      */
     public TableroUsuario() {
         matriz = new int[10][10];
-        encontrado = false;
     }
 
     /**
@@ -81,8 +78,8 @@ public class TableroUsuario extends JPanel {
      * @return el valor de la matriz del jugador humano de tipo matriz de enteros
      * @version v.1.0.0 date 16/03/2022
      */
-    public int[][] getMatriz(){
+    public int[][] getMatriz() {
         return matriz;
     }
-    
+
 }
