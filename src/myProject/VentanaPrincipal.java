@@ -13,7 +13,18 @@ import java.awt.event.MouseListener;
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 public class VentanaPrincipal extends JFrame {
-    public static final String MENSAJE_INICIO = "";
+    public static final String MENSAJE_INICIO = "Hola!! bienvenido al juego Battleship\n" +
+            "Al inicio del juego podras ubicar tu flota como se muestra en la imagen, " +
+            " y tendras 4 casillas para ubicar los portaaviones, 6 para los submarinos, 6 para los destructores y 4 para las fragatas\n" +
+            "Recuerda que los barcos son de la siguiente manera:\n"+
+            "1. 1 portaavion(gris) que ocupa 4 casillas cada uno\n" +
+            "2. 2 submarinos(azules) que ocupan 3 casillas cada uno\n" +
+            "3. 3 destructores(rojos) que ocupan 2 casillas cada uno\n" +
+            "4. 4 fragatas(amarillos) que ocupan 1 casilla cada una\n" +
+            "Después de tener tu flota, podras iniciar atacando la flota enemiga (Tablero principal)\n" +
+            "Después de tu ataque, le podras dar al boton start para que el enemigo te ataque, a lo que termine tu puedes volver a atacarlo y asi sucesivamente\n" +
+            "Como un bonus, con el boton de view opponent puedes ver la flota de tu oponente (primero tienes que darle al boton paint para observarla)\n" +
+            "No ha sido nada mas, mucha suerte :)";
 
     private Header headerProject;
     private JPanel panelPosicion, panelPrincipal, separador1, separados2;
@@ -31,7 +42,7 @@ public class VentanaPrincipal extends JFrame {
     private int counter1, counter2, counter3, counter4;
     private int filaVariable, columnaVariable;
     private int estado;
-    private ImageIcon imageHeader, imageBotonAyuda, imageBotonJugar, imageBotonVerOponente, imageHundido, imageTocado, imageAgua;
+    private ImageIcon imageHeader, imageBotonAyuda, imageBotonJugar, imageBotonVerOponente, imageHundido, imageTocado, imageAgua, imageTablero;
 
 
     /**
@@ -267,7 +278,9 @@ public class VentanaPrincipal extends JFrame {
                 }
 
                 if (e.getSource() == botonAyuda) {
-                    JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE);
+                    imageTablero = new ImageIcon(getClass().getResource("/recursos/inicio.jpeg"));
+                    imageTablero = new ImageIcon(imageTablero.getImage().getScaledInstance(301,309, Image.SCALE_SMOOTH));
+                    JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE, imageTablero);
                 }
 
                 if (e.getSource() == botonSalir) {

@@ -35,7 +35,7 @@ public class ModelComputador extends JPanel {
      *
      * @version v.1.0.0 date 21/03/2022
      */
-    public void ataques( int[][] matriz1, CasillaHumano[][] nuevasCasillas, CasillaHumano matriz2){
+    public void ataques(int[][] matriz1, CasillaHumano[][] nuevasCasillas, CasillaHumano matriz2){
         Random aleatorio = new Random();
         fila = aleatorio.nextInt(10);
         columna= aleatorio.nextInt(10);
