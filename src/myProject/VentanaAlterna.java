@@ -84,7 +84,7 @@ public class VentanaAlterna extends JFrame {
                 panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
                 constraints.gridx = 0;
                 constraints.gridy = 1;
-                constraints.gridwidth = 1;
+                constraints.gridwidth = 2;
                 constraints.fill = GridBagConstraints.NONE;
                 constraints.anchor = GridBagConstraints.CENTER;
                 this.add(panelPosicion, constraints);
@@ -92,27 +92,11 @@ public class VentanaAlterna extends JFrame {
             }
         }
 
-        panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayout(10, 10));
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                nuevasCasillas2[i][j] = new CasillaMaquina(i, j);
-                panelPrincipal.add(nuevasCasillas2[i][j]);
-                nuevasCasillas2[i][j].setPreferredSize(new Dimension(20, 20));
-                panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
-                constraints.gridx = 1;
-                constraints.gridy = 1;
-                constraints.gridwidth = 1;
-                constraints.fill = GridBagConstraints.NONE;
-                constraints.anchor = GridBagConstraints.CENTER;
-                this.add(panelPrincipal, constraints);
-            }
-        }
 
         botonPintar = new JButton("PINTAR");
         botonPintar.setPreferredSize(new Dimension(130,50));
         pintar = new ImageIcon(getClass().getResource("/recursos/pintar.jpeg"));
-        pintar = new ImageIcon(pintar.getImage().getScaledInstance(137,50, Image.SCALE_SMOOTH));
+        pintar = new ImageIcon(pintar.getImage().getScaledInstance(140,50, Image.SCALE_SMOOTH));
         botonPintar.setIcon(pintar);
         botonPintar.setContentAreaFilled(false);
         constraints.gridx = 1;
@@ -149,7 +133,7 @@ public class VentanaAlterna extends JFrame {
             if(e.getSource() == botonPintar){
                 Random aleatorio = new Random();
                 //System.out.println("El numero aleatorio es: "+tableroComputador.getNumAleatorio());
-              //  tableroComputador.getNumAleatorio() = tableroComputador.getNumAleatorio();
+                //tableroComputador.getNumAleatorio() = tableroComputador.getNumAleatorio();
                 tableroComputador.tablerosAleatorios(tableroComputador.getNumAleatorio(),nuevasCasillas1,casillaMaquina);
                 System.out.println();
                 mostrarLaMatriz(tableroComputador.getMatrizC());

@@ -22,14 +22,16 @@ public class VentanaPrincipal extends JFrame {
     private Canva canva;
     private TableroUsuario tableroUsuario;
     private ModelJugador modelJugador;
+    private ModelComputador modelComputador;
     private TableroComputador tableroComputador;
     private CasillaHumano[][] nuevasCasillaHumanos;
     private CasillaMaquina[][] nuevasCasillaMaquina;
+    private CasillaHumano matriz;
     private VentanaAlterna ventanaAlterna;
     private int counter1, counter2, counter3, counter4;
     private int filaVariable, columnaVariable;
     private int estado;
-    private ImageIcon imageHeader, imageBotonSalir, imageBotonAyuda, imageBotonJugar, imageBotonVerOponente, imageHundido, imageTocado, imageAgua;
+    private ImageIcon imageHeader, imageBotonAyuda, imageBotonJugar, imageBotonVerOponente, imageHundido, imageTocado, imageAgua;
 
 
     /**
@@ -45,8 +47,6 @@ public class VentanaPrincipal extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
-
-
     }
 
 
@@ -60,6 +60,7 @@ public class VentanaPrincipal extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
+        modelComputador = new ModelComputador();
         //casillas = new CasillaHumano();
         tableroUsuario = new TableroUsuario();
         modelJugador = new ModelJugador();
@@ -69,14 +70,13 @@ public class VentanaPrincipal extends JFrame {
         ventanaAlterna = new VentanaAlterna();
         ventanaAlterna.setVisible(false);
 
-
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(500, 120));
         imageHeader = new ImageIcon(getClass().getResource("/recursos/header.jpeg"));
         imageHeader = new ImageIcon(imageHeader.getImage().getScaledInstance(500,120, Image.SCALE_SMOOTH));
         headerProject.setIcon(imageHeader);
-        constraints.gridx = 2;
+        constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.NONE;
@@ -96,7 +96,7 @@ public class VentanaPrincipal extends JFrame {
                 panelPosicion.add(nuevasCasillaHumanos[i][j]);
                 panelPosicion.setBorder(BorderFactory.createTitledBorder("Tablero de posición"));
                 //panelPosicion.setBackground(Color.CYAN);
-                constraints.gridx = 2;
+                constraints.gridx = 0;
                 constraints.gridy = 1;
                 constraints.gridwidth = 1;
                 constraints.fill = GridBagConstraints.NONE;
@@ -114,7 +114,7 @@ public class VentanaPrincipal extends JFrame {
                 panelPrincipal.add(nuevasCasillaMaquina[i][j]);
                 nuevasCasillaMaquina[i][j].setPreferredSize(new Dimension(20, 20));
                 panelPrincipal.setBorder(BorderFactory.createTitledBorder("Tablero principal"));
-                constraints.gridx = 3;
+                constraints.gridx = 1;
                 constraints.gridy = 1;
                 constraints.gridwidth = 1;
                 constraints.fill = GridBagConstraints.NONE;
@@ -123,28 +123,14 @@ public class VentanaPrincipal extends JFrame {
             }
         }
 
-        /*botonSalir = new JButton();
-        botonSalir.setPreferredSize(new Dimension(100, 45));
-        imageBotonSalir = new ImageIcon(getClass().getResource("/recursos/salir.jpeg"));
-        imageBotonSalir = new ImageIcon(imageBotonSalir.getImage().getScaledInstance(100,45, Image.SCALE_SMOOTH));
-        botonSalir.setIcon(imageBotonSalir);
-        botonSalir.setContentAreaFilled(false);
-        constraints.gridx = 2;
-        constraints.gridy = 2;
-        constraints.gridwidth = 1;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.LINE_END;
-        this.add(botonSalir, constraints);
-        botonSalir.addMouseListener(escucha);*/
-
         botonAyuda = new JButton("Ayuda");
         botonAyuda.setPreferredSize(new Dimension(130, 50));
         imageBotonAyuda = new ImageIcon(getClass().getResource("/recursos/ayuda.jpg"));
         imageBotonAyuda = new ImageIcon(imageBotonAyuda.getImage().getScaledInstance(137,50, Image.SCALE_SMOOTH));
         botonAyuda.setIcon(imageBotonAyuda);
         botonAyuda.setContentAreaFilled(false);
-        constraints.gridx = 2;
-        constraints.gridy = 3;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
@@ -157,13 +143,14 @@ public class VentanaPrincipal extends JFrame {
         botonJugar.setIcon(imageBotonJugar);
         botonJugar.setContentAreaFilled(false);
         botonJugar.setPreferredSize(new Dimension(130, 50));
-        constraints.gridx = 2;
-        constraints.gridy = 3;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonJugar, constraints);
         botonJugar.addMouseListener(escucha);
+        botonJugar.setVisible(false);
 
         verUsuario = new JButton("Ver oponente");
         verUsuario.setPreferredSize(new Dimension(130, 50));
@@ -171,8 +158,8 @@ public class VentanaPrincipal extends JFrame {
         imageBotonVerOponente = new ImageIcon(imageBotonVerOponente.getImage().getScaledInstance(137,50, Image.SCALE_SMOOTH));
         verUsuario.setIcon(imageBotonVerOponente);
         verUsuario.setContentAreaFilled(false);
-        constraints.gridx = 3;
-        constraints.gridy = 3;
+        constraints.gridx = 1;
+        constraints.gridy = 2;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_END;
@@ -218,9 +205,6 @@ public class VentanaPrincipal extends JFrame {
                     filaVariable = casillaHumanoSeleccionada.getFila();
                     columnaVariable = casillaHumanoSeleccionada.getColumna();
                     casillaHumanoSeleccionada.getColumna();
-                    System.out.println("LA FILA: " + filaVariable);
-                    System.out.println("LA COLUMNA: " + columnaVariable);
-                    System.out.println();
                     counter1++;
                     tableroUsuario.insertarPortaaviones(filaVariable, columnaVariable);
                 } else if (counter2 < 6) {//submarinos -> 2
@@ -247,7 +231,7 @@ public class VentanaPrincipal extends JFrame {
                     casillaHumanoSeleccionada.getColumna();
                     tableroUsuario.insertarFragatas(filaVariable, columnaVariable);
                     counter4++;
-                    modelJugador.verificarDisparoPortaavion(filaVariable, columnaVariable);
+                    mostrarLaMatriz(tableroUsuario.getMatriz());
                 }
 
             }
@@ -257,21 +241,28 @@ public class VentanaPrincipal extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() instanceof JButton && e.getSource() != botonAyuda && e.getSource() != verUsuario && e.getSource() != botonSalir && e.getSource() != botonJugar) {
-                    CasillaMaquina casillaMaquinaSeleccionada = (CasillaMaquina) e.getSource();
-                    casillaMaquinaSeleccionada.setPreferredSize(new Dimension(20,20));
-                    casillaMaquinaSeleccionada.getFila();
-                    casillaMaquinaSeleccionada.getColumna();
-                    filaVariable = casillaMaquinaSeleccionada.getFila();
-                    columnaVariable = casillaMaquinaSeleccionada.getColumna();
-                    tableroComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio(),ventanaAlterna.getNuevasCasillas1(),ventanaAlterna.getCasillaMaquina());
-                    verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada,tableroComputador.getMatrizC());
-                    mostrarLaMatriz(tableroComputador.getMatrizC());
+                CasillaMaquina casillaMaquinaSeleccionada = (CasillaMaquina) e.getSource();
+                while(estado == 0){
+                botonJugar.addMouseListener(escucha);
+                botonJugar.setVisible(true);
+                casillaMaquinaSeleccionada.setPreferredSize(new Dimension(20, 20));
+                casillaMaquinaSeleccionada.getFila();
+                casillaMaquinaSeleccionada.getColumna();
+                filaVariable = casillaMaquinaSeleccionada.getFila();
+                columnaVariable = casillaMaquinaSeleccionada.getColumna();
+                tableroComputador.tablerosAleatorios(ventanaAlterna.getNumAleatorio(), ventanaAlterna.getNuevasCasillas1(), ventanaAlterna.getCasillaMaquina());
+                verificarCoordenada(filaVariable, columnaVariable, casillaMaquinaSeleccionada, tableroComputador.getMatrizC());
+                mostrarLaMatriz(tableroComputador.getMatrizC());
+                estado = 1;
+            }
                     //System.out.println(ventanaAlterna.getNumAleatorio());
             }
 
                 if (e.getSource() == verUsuario){
                     VentanaAlterna ventanaAlterna = new VentanaAlterna();
                     ventanaAlterna.setVisible(true);
+                    verUsuario.removeMouseListener(escucha);
+                    verUsuario.setVisible(false);
 
                 }
 
@@ -283,7 +274,12 @@ public class VentanaPrincipal extends JFrame {
                     System.exit(0);
                 }
 
-                if (e.getSource() == botonJugar) {
+                if (e.getSource() == botonJugar){
+                    modelComputador.ataques(tableroUsuario.getMatriz(), nuevasCasillaHumanos,matriz);
+                    estado = 0;
+                    botonJugar.removeMouseListener(escucha);
+                    botonJugar.setVisible(false);
+                    mostrarLaMatriz(tableroUsuario.getMatriz());
                     //tableroComputador.tablerosAleatorios();
                     //mostrarLaMatriz(tableroComputador.getMatrizC());
                 }
@@ -332,7 +328,7 @@ public class VentanaPrincipal extends JFrame {
                         matrizSeleccionada.setIcon(imageHundido);
                         matrizSeleccionada.setContentAreaFilled(false);
                         matriz[fila][columna] = 6;
-                        //matrizSeleccionada.setBackground(Color.black);
+
                     } else if (matriz[fila][columna] == 0) {
                         matriz[fila][columna] = 0;
                         imageAgua = new ImageIcon(getClass().getResource("/recursos/equis.png"));

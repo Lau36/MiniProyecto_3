@@ -39,22 +39,6 @@ public class ModelJugador {
         */
     }
 
-    /**
-     *
-     *
-     * @return
-     * @version v.1.0.0 date /03/2022
-     */
-    public void verificarDisparoPortaavion(int fila, int columna){
-        for(int i= 0; i<tablero.getMatriz().length;i++){
-            for(int j=0; j<tablero.getMatriz()[i].length;j++){
-                if(tablero.getMatriz()[fila][columna]==1){
-                    tablero.getMatriz()[fila][columna] = 5;
-                    System.out.println("LA MATRIZ NUEVA ES: "+tablero.getMatriz()[fila][columna]);
-                }
-            }
-        }
-    }
 
     /**
      * Verifica si en la coordenada donde se disparo hay un barco y le da el valor a la nueva matriz con los disparos
